@@ -1,187 +1,109 @@
-// Rudra Consultancy Website Script
-// Owner: Sakshi
+// script.js
+// Rudra Consultancy Website
 
+// Smooth Scroll Navigation
+document.querySelectorAll('nav a').forEach(link => {
 
-// WhatsApp Number
+    link.addEventListener('click', function (e) {
 
-const whatsappNumber = "916398030135";
+        e.preventDefault();
 
+        const target = document.querySelector(this.getAttribute('href'));
 
+        if (target) {
 
-// Job Apply Buttons
+            target.scrollIntoView({
 
-const applyButtons = document.querySelectorAll(".apply-btn");
+                behavior: "smooth"
 
+            });
 
-applyButtons.forEach(button => {
-
-
-    button.addEventListener("click", function(){
-
-
-        const jobName =
-        this.parentElement.querySelector("h3").innerText;
-
-
-        const message =
-        "Hello Rudra Consultancy,\n\n" +
-        "I want to apply for " +
-        jobName +
-        " vacancy.\n\n" +
-        "Please share more details.";
-
-
-        window.open(
-
-            "https://wa.me/" +
-            whatsappNumber +
-            "?text=" +
-            encodeURIComponent(message),
-
-            "_blank"
-
-        );
-
+        }
 
     });
-
 
 });
 
 
 
+// Apply Button Action
 
-// Candidate Form
+document.querySelectorAll(".apply-btn").forEach(button => {
 
+    button.addEventListener("click", () => {
+
+        document
+            .getElementById("candidate")
+            .scrollIntoView({
+
+                behavior: "smooth"
+
+            });
+
+    });
+
+});
+
+
+
+// Candidate Registration Success
 
 const candidateForm =
 document.getElementById("candidateForm");
 
-
 if(candidateForm){
 
+candidateForm.addEventListener("submit",()=>{
 
-candidateForm.addEventListener("submit",function(e){
+setTimeout(()=>{
 
+alert(
+"Thank you for registering with Rudra Consultancy."
+);
 
-    e.preventDefault();
-
-
-    alert(
-    "Thank you for registering with Rudra Consultancy.\n\n" +
-    "Our team will contact you soon.\n\n" +
-    "Owner: Sakshi\n" +
-    "Mobile: 6398030135"
-    );
-
-
-    this.reset();
-
+},500);
 
 });
-
 
 }
 
 
 
-
-
-
-// Employer Form
-
+// Employer Registration Success
 
 const employerForm =
 document.getElementById("employerForm");
 
-
 if(employerForm){
 
+employerForm.addEventListener("submit",()=>{
 
-employerForm.addEventListener("submit",function(e){
+setTimeout(()=>{
 
+alert(
+"Company registration submitted successfully."
+);
 
-    e.preventDefault();
-
-
-    alert(
-    "Thank you for registering your company with Rudra Consultancy.\n\n" +
-    "Our recruitment team will contact you soon."
-    );
-
-
-    this.reset();
-
+},500);
 
 });
-
 
 }
 
 
 
+// Footer Year
+
+const footer =
+document.querySelector("footer p");
+
+if(footer){
+
+footer.innerHTML =
+`© ${new Date().getFullYear()} Rudra Consultancy. All Rights Reserved.`;
+
+}
 
 
 
-
-// Smooth Scrolling
-
-
-document.querySelectorAll('a[href^="#"]')
-.forEach(link => {
-
-
-    link.addEventListener("click",function(e){
-
-
-        const target =
-        document.querySelector(
-        this.getAttribute("href")
-        );
-
-
-        if(target){
-
-
-            e.preventDefault();
-
-
-            target.scrollIntoView({
-
-                behavior:"smooth"
-
-            });
-
-
-        }
-
-
-    });
-
-
-});
-
-
-
-
-
-
-
-// Website Information Console
-
-
-console.log(
-
-"Rudra Consultancy\n\n" +
-
-"Owner: Sakshi\n" +
-
-"Mobile: 6398030135\n" +
-
-"WhatsApp: 6398030135\n" +
-
-"Email: rudraconsultancy.office@gmail.com\n" +
-
-"Address: Kashipur, Uttarakhand, Udham Singh Nagar"
-
-);
+console.log("Rudra Consultancy Website Loaded");
