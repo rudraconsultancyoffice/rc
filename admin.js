@@ -1,18 +1,42 @@
 // ===================================
 // Rudra Consultancy
-// admin.js FINAL PART 1
+// admin.js FINAL
 // ===================================
 
+
 import { db } from "./firebase-config.js";
+
+
 import {
+
 collection,
+
 getDocs,
+
 deleteDoc,
-doc
+
+doc,
+
+addDoc
+
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const candidateTable=document.getElementById("candidateTable");
-const employerTable=document.getElementById("employerTable");
+
+
+
+// Tables
+
+const candidateTable =
+document.getElementById("candidateTable");
+
+
+const employerTable =
+document.getElementById("employerTable");
+
+
+const vacancyTable =
+document.getElementById("vacancyTable");
+
 
 
 
@@ -22,34 +46,45 @@ const employerTable=document.getElementById("employerTable");
 
 async function loadCandidates(){
 
+
 candidateTable.innerHTML="";
 
-const snapshot=await getDocs(
+
+const snapshot =
+await getDocs(
 collection(db,"candidates")
 );
 
+
+
 snapshot.forEach((document)=>{
 
-const data=document.data();
 
-candidateTable.innerHTML+=`
+const data =
+document.data();
+
+
+
+candidateTable.innerHTML += `
+
 
 <tr>
 
-<td>${data.name||""}</td>
+<td>${data.name || ""}</td>
 
-<td>${data.mobile||""}</td>
+<td>${data.mobile || ""}</td>
 
-<td>${data.email||""}</td>
+<td>${data.email || ""}</td>
 
-<td>${data.qualification||""}</td>
+<td>${data.qualification || ""}</td>
 
-<td>${data.preferredJob||""}</td>
+<td>${data.preferredJob || ""}</td>
+
 
 <td>
 
-<button
-class="deleteBtn"
+<button class="deleteBtn"
+
 onclick="deleteCandidate('${document.id}')">
 
 Delete
@@ -58,34 +93,41 @@ Delete
 
 </td>
 
+
 </tr>
+
 
 `;
 
+
 });
+
 
 }
 
 
 
-// ===========================
-// Delete Candidate
-// ===========================
 
-window.deleteCandidate=async(id)=>{
+window.deleteCandidate = async(id)=>{
+
 
 if(!confirm("Delete Candidate ?"))
 return;
+
 
 await deleteDoc(
 doc(db,"candidates",id)
 );
 
+
 loadCandidates();
 
 loadDashboard();
 
+
 };
+
+
 
 
 
@@ -95,65 +137,294 @@ loadDashboard();
 
 async function loadEmployers(){
 
+
 employerTable.innerHTML="";
 
-const snapshot=await getDocs(
+
+const snapshot =
+await getDocs(
 collection(db,"employers")
 );
 
+
+
 snapshot.forEach((document)=>{
 
-const data=document.data();
 
-employerTable.innerHTML+=`
+const data =
+document.data();
+
+
+
+employerTable.innerHTML += `
+
 
 <tr>
 
-<td>${data.companyName||""}</td>
 
-<td>${data.contactPerson||""}</td>
+<td>${data.companyName || ""}</td>
 
-<td>${data.mobile||""}</td>
+<td>${data.contactPerson || ""}</td>
 
-<td>${data.email||""}</td>
+<td>${data.mobile || ""}</td>
+
+<td>${data.email || ""}</td>
+
 
 <td>
 
-<button
-class="deleteBtn"
+
+<button class="deleteBtn"
+
 onclick="deleteEmployer('${document.id}')">
 
 Delete
 
 </button>
 
+
 </td>
+
 
 </tr>
 
+
 `;
+
 
 });
 
+
 }
-// ===========================
-// Delete Employer
-// ===========================
+
+
+
 
 window.deleteEmployer = async(id)=>{
 
+
 if(!confirm("Delete Employer ?"))
 return;
+
 
 await deleteDoc(
 doc(db,"employers",id)
 );
 
+
 loadEmployers();
 
 loadDashboard();
 
+
 };
+
+
+
+
+
+
+
+// ===========================
+// Add Vacancy
+// ===========================
+
+
+const vacancyForm =
+document.getElementById("vacancyForm");
+
+
+const vacancyMessage =
+document.getElementById("vacancyMessage");
+
+
+
+
+if(vacancyForm){
+
+
+vacancyForm.addEventListener("submit", async(e)=>{
+
+
+e.preventDefault();
+
+
+
+await addDoc(
+
+collection(db,"vacancies"),
+
+{
+
+
+title:
+document.getElementById("jobTitle").value,
+
+
+location:
+document.getElementById("jobLocation").value,
+
+
+salary:
+document.getElementById("jobSalary").value,
+
+
+qualification:
+document.getElementById("jobQualification").value,
+
+
+status:
+"Active",
+
+
+createdAt:
+new Date()
+
+
+}
+
+);
+
+
+
+
+vacancyMessage.innerText =
+"Vacancy Added Successfully";
+
+
+vacancyMessage.style.color =
+"green";
+
+
+
+vacancyForm.reset();
+
+
+
+loadVacancies();
+
+loadDashboard();
+
+
+
+});
+
+
+}
+
+
+
+
+
+
+// ===========================
+// Load Vacancies
+// ===========================
+
+
+async function loadVacancies(){
+
+
+if(!vacancyTable)
+return;
+
+
+vacancyTable.innerHTML="";
+
+
+
+const snapshot =
+await getDocs(
+collection(db,"vacancies")
+);
+
+
+
+
+snapshot.forEach((document)=>{
+
+
+const data =
+document.data();
+
+
+
+vacancyTable.innerHTML += `
+
+
+
+<tr>
+
+
+<td>${data.title || ""}</td>
+
+
+<td>${data.location || ""}</td>
+
+
+<td>${data.salary || ""}</td>
+
+
+<td>${data.status || ""}</td>
+
+
+<td>
+
+
+<button class="deleteBtn"
+
+onclick="deleteVacancy('${document.id}')">
+
+Delete
+
+</button>
+
+
+</td>
+
+
+</tr>
+
+
+`;
+
+
+});
+
+
+}
+
+
+
+
+
+
+window.deleteVacancy = async(id)=>{
+
+
+if(!confirm("Delete Vacancy ?"))
+return;
+
+
+await deleteDoc(
+
+doc(db,"vacancies",id)
+
+);
+
+
+
+loadVacancies();
+
+loadDashboard();
+
+
+};
+
+
+
+
+
 
 
 
@@ -161,73 +432,124 @@ loadDashboard();
 // Dashboard Count
 // ===========================
 
+
 async function loadDashboard(){
 
+
+
 const candidateSnapshot =
-await getDocs(collection(db,"candidates"));
+await getDocs(
+collection(db,"candidates")
+);
+
+
 
 const employerSnapshot =
-await getDocs(collection(db,"employers"));
+await getDocs(
+collection(db,"employers")
+);
+
+
 
 const vacancySnapshot =
-await getDocs(collection(db,"vacancies"));
+await getDocs(
+collection(db,"vacancies")
+);
+
+
 
 document.getElementById("candidateCount").innerText =
 candidateSnapshot.size;
 
+
+
 document.getElementById("employerCount").innerText =
 employerSnapshot.size;
+
+
 
 document.getElementById("vacancyCount").innerText =
 vacancySnapshot.size;
 
+
+
 }
 
 
 
+
+
+
+
+
 // ===========================
-// Candidate Search
+// Search Candidate
 // ===========================
+
 
 const searchBox =
 document.getElementById("searchCandidate");
 
+
+
 if(searchBox){
 
+
 searchBox.addEventListener("keyup",()=>{
+
 
 const value =
 searchBox.value.toLowerCase();
 
+
+
 const rows =
 document.querySelectorAll("#candidateTable tr");
 
+
+
 rows.forEach((row)=>{
+
 
 const text =
 row.innerText.toLowerCase();
 
+
+
 row.style.display =
 text.includes(value)
-? ""
-: "none";
+?
+""
+:
+"none";
+
+
 
 });
 
+
 });
+
 
 }
 
 
 
+
+
+
 // ===========================
-// Start Dashboard
+// Start
 // ===========================
+
 
 loadCandidates();
 
 loadEmployers();
 
+loadVacancies();
+
 loadDashboard();
+
 
 console.log("Admin Dashboard Ready");
