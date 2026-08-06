@@ -1,56 +1,54 @@
-// Rudra Consultancy Admin Panel Script
+// Rudra Consultancy Admin Panel Firebase Connection
 // Owner: Sakshi
 
 
-
-// Dashboard Counter Demo Data
-
-let candidates = 0;
-let employers = 0;
-let vacancies = 0;
+import { db } from "./firebase-config.js";
 
 
+import {
 
-document.getElementById("candidateCount").innerText = candidates;
+collection,
+getDocs
 
-document.getElementById("employerCount").innerText = employers;
+}
 
-document.getElementById("vacancyCount").innerText = vacancies;
+from
 
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 
 
-// Add Vacancy Form
+
+// Load Candidates Count
 
 
-const vacancyForm = document.querySelector("#vacancies form");
+async function loadCandidates(){
 
 
-if(vacancyForm){
+try{
 
 
-vacancyForm.addEventListener("submit",function(e){
+const snapshot = await getDocs(
+
+collection(db,"candidates")
+
+);
 
 
-    e.preventDefault();
+
+document.getElementById("candidateCount").innerText =
+snapshot.size;
 
 
-    vacancies++;
 
+}
 
-    document.getElementById("vacancyCount").innerText = vacancies;
+catch(error){
 
+console.log(error);
 
-    alert(
-        "New vacancy added successfully."
-    );
-
-
-    this.reset();
-
-
-});
+}
 
 
 }
@@ -60,33 +58,94 @@ vacancyForm.addEventListener("submit",function(e){
 
 
 
-// View Buttons
+// Load Employers Count
 
 
-const viewButtons = document.querySelectorAll("button");
+async function loadEmployers(){
 
 
-viewButtons.forEach(button=>{
+try{
 
 
-    if(button.innerText === "View"){
+const snapshot = await getDocs(
+
+collection(db,"employers")
+
+);
 
 
-        button.addEventListener("click",function(){
+
+document.getElementById("employerCount").innerText =
+snapshot.size;
 
 
-            alert(
-            "Details will be connected with database after backend integration."
-            );
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
 
 
-        });
+}
 
 
-    }
 
 
-});
+
+
+
+
+// Load Vacancies Count
+
+
+async function loadVacancies(){
+
+
+try{
+
+
+const snapshot = await getDocs(
+
+collection(db,"vacancies")
+
+);
+
+
+
+document.getElementById("vacancyCount").innerText =
+snapshot.size;
+
+
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+// Start Dashboard
+
+
+loadCandidates();
+
+loadEmployers();
+
+loadVacancies();
 
 
 
