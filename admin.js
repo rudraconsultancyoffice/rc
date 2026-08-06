@@ -1,187 +1,168 @@
+// ===================================
+// Rudra Consultancy
 // admin.js
+// PART 1
+// ===================================
 
-import { auth, db } from "./firebase-config.js";
-
-import {
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { db } from "./firebase-config.js";
 
 import {
-    collection,
-    getDocs
+collection,
+getDocs,
+deleteDoc,
+doc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+const candidateTable =
+document.getElementById("candidateTable");
 
+const employerTable =
+document.getElementById("employerTable");
 
-// --------------------
-// Login Protection
-// --------------------
+// ===================================
+// Load Candidates
+// ===================================
 
-onAuthStateChanged(auth, async (user) => {
+async function loadCandidates(){
 
-    if (!user) {
+candidateTable.innerHTML="";
 
-        window.location.href = "login.html";
-        return;
+const snapshot =
+await getDocs(
+collection(db,"candidates")
+);
 
-    }
+snapshot.forEach((document)=>{
 
-    loadCandidates();
-    loadEmployers();
-    loadVacancies();
+const data=document.data();
+
+candidateTable.innerHTML+=`
+
+<tr>  <td>${data.name||""}</td>  <td>${data.mobile||""}</td>  <td>${data.email||""}</td>  <td>${data.qualification||""}</td>  <td>${data.preferredJob||""}</td>  <td>  <button  
+class="deleteBtn"  
+onclick="deleteCandidate('${document.id}')">
+
+Delete
+
+</button>  </td>  </tr>  `;
 
 });
 
+}
 
+window.loadCandidates=loadCandidates;
+// ===================================
+// Delete Candidate
+// ===================================
 
-// --------------------
-// Logout
-// --------------------
+window.deleteCandidate = async function(id){
 
-const logoutBtn = document.getElementById("logoutBtn");
+const ok = confirm(
+"Delete this candidate?"
+);
 
-if (logoutBtn) {
+if(!ok) return;
 
-    logoutBtn.addEventListener("click", async () => {
+await deleteDoc(
+doc(db,"candidates",id)
+);
 
-        await signOut(auth);
+loadCandidates();
 
-        window.location.href = "login.html";
+};
 
-    });
+// ===================================
+// Load Employers
+// ===================================
+
+async function loadEmployers(){
+
+employerTable.innerHTML="";
+
+const snapshot =
+await getDocs(
+collection(db,"employers")
+);
+
+snapshot.forEach((document)=>{
+
+const data=document.data();
+
+employerTable.innerHTML += `
+
+<tr>  <td>${data.companyName||""}</td>  <td>${data.contactPerson||""}</td>  <td>${data.mobile||""}</td>  <td>${data.email||""}</td>  <td>  <button  
+class="deleteBtn"  
+onclick="deleteEmployer('${document.id}')">
+
+Delete
+
+</button>  </td>  </tr>  `;
+
+});
 
 }
 
+window.loadEmployers = loadEmployers;
+// ===================================
+// Delete Employer
+// ===================================
 
+window.deleteEmployer = async function(id){
 
-// --------------------
-// Candidates
-// --------------------
+const ok = confirm(
+"Delete this employer?"
+);
 
-async function loadCandidates() {
+if(!ok) return;
 
-    const tbody = document.getElementById("candidateTable");
+await deleteDoc(
+doc(db,"employers",id)
+);
 
-    if (!tbody) return;
+loadEmployers();
 
-    tbody.innerHTML = "";
+};
 
-    const snapshot = await getDocs(collection(db, "candidates"));
+// ===================================
+// Dashboard Count
+// ===================================
 
-    document.getElementById("candidateCount").innerText =
-        snapshot.size;
+async function loadDashboard(){
 
-    snapshot.forEach((doc) => {
+const candidateSnapshot =
+await getDocs(
+collection(db,"candidates")
+);
 
-        const data = doc.data();
+const employerSnapshot =
+await getDocs(
+collection(db,"employers")
+);
 
-        tbody.innerHTML += `
+const vacancySnapshot =
+await getDocs(
+collection(db,"vacancies")
+);
 
-<tr>
+document.getElementById("candidateCount").innerText =
+candidateSnapshot.size;
 
-<td>${data.name || ""}</td>
+document.getElementById("employerCount").innerText =
+employerSnapshot.size;
 
-<td>${data.mobile || ""}</td>
-
-<td>${data.email || ""}</td>
-
-<td>${data.qualification || ""}</td>
-
-<td>${data.experience || ""}</td>
-
-</tr>
-
-`;
-
-    });
-
-}
-
-
-
-// --------------------
-// Employers
-// --------------------
-
-async function loadEmployers() {
-
-    const tbody = document.getElementById("employerTable");
-
-    if (!tbody) return;
-
-    tbody.innerHTML = "";
-
-    const snapshot = await getDocs(collection(db, "employers"));
-
-    document.getElementById("employerCount").innerText =
-        snapshot.size;
-
-    snapshot.forEach((doc) => {
-
-        const data = doc.data();
-
-        tbody.innerHTML += `
-
-<tr>
-
-<td>${data.companyName || ""}</td>
-
-<td>${data.contactPerson || ""}</td>
-
-<td>${data.mobile || ""}</td>
-
-<td>${data.email || ""}</td>
-
-</tr>
-
-`;
-
-    });
+document.getElementById("vacancyCount").innerText =
+vacancySnapshot.size;
 
 }
 
+// ===================================
+// Start Dashboard
+// ===================================
 
+loadCandidates();
 
-// --------------------
-// Vacancies
-// --------------------
+loadEmployers();
 
-async function loadVacancies() {
+loadDashboard();
 
-    const tbody = document.getElementById("vacancyTable");
-
-    if (!tbody) return;
-
-    tbody.innerHTML = "";
-
-    const snapshot = await getDocs(collection(db, "vacancies"));
-
-    document.getElementById("vacancyCount").innerText =
-        snapshot.size;
-
-    snapshot.forEach((doc) => {
-
-        const data = doc.data();
-
-        tbody.innerHTML += `
-
-<tr>
-
-<td>${data.jobTitle || ""}</td>
-
-<td>${data.location || ""}</td>
-
-<td>${data.salary || ""}</td>
-
-<td>${data.status || "Open"}</td>
-
-</tr>
-
-`;
-
-    });
-
-}
-
-console.log("Rudra Consultancy Admin Dashboard Ready");
+console.log("Admin Dashboard Ready");
