@@ -1,36 +1,76 @@
-// Rudra Consultancy Database
-// Part 1
+// ===============================
+// Rudra Consultancy
+// database.js
+// FINAL PART 1
+// ===============================
 
-import { db } from "./firebase-config.js";
+import { app, db } from "./firebase-config.js";
 
 import {
 addDoc,
 collection,
 serverTimestamp
 }
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+getStorage,
+ref,
+uploadBytes,
+getDownloadURL
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+const storage = getStorage(app);
 
 
 
-// ----------------------------
+// ===================================
 // Candidate Registration
-// ----------------------------
+// ===================================
 
 const candidateForm =
 document.getElementById("candidateForm");
 
-
-
 if(candidateForm){
 
-candidateForm.addEventListener("submit",
+candidateForm.addEventListener(
 
-async function(e){
+"submit",
+
+async(e)=>{
 
 e.preventDefault();
 
 try{
+
+const resumeFile=
+document.getElementById("candidateResume").files[0];
+
+let resumeURL="";
+
+if(resumeFile){
+
+const resumeRef=ref(
+
+storage,
+
+"resumes/"+Date.now()+"_"+resumeFile.name
+
+);
+
+await uploadBytes(
+
+resumeRef,
+
+resumeFile
+
+);
+
+resumeURL=
+await getDownloadURL(resumeRef);
+
+}
 
 await addDoc(
 
@@ -39,42 +79,37 @@ collection(db,"candidates"),
 {
 
 name:
-
 document.getElementById("candidateName").value,
 
 mobile:
-
 document.getElementById("candidateMobile").value,
 
 email:
-
 document.getElementById("candidateEmail").value,
 
 qualification:
-
 document.getElementById("candidateQualification").value,
 
 experience:
-
 document.getElementById("candidateExperience").value,
 
 preferredJob:
-
 document.getElementById("candidateJob").value,
 
 address:
-
 document.getElementById("candidateAddress").value,
 
-createdAt:
+resume:
+resumeURL,
 
+createdAt:
 serverTimestamp()
 
 }
 
 );
 
-alert("Candidate Registered Successfully.");
+alert("Candidate Registered Successfully");
 
 candidateForm.reset();
 
@@ -82,9 +117,9 @@ candidateForm.reset();
 
 catch(error){
 
-console.log(error);
+console.error(error);
 
-alert("Registration Failed.");
+alert(error.message);
 
 }
 
@@ -94,14 +129,12 @@ alert("Registration Failed.");
 
 
 
-// ----------------------------
+// ===================================
 // Employer Registration
-// ----------------------------
+// ===================================
 
-const employerForm =
+const employerForm=
 document.getElementById("employerForm");
-
-
 
 if(employerForm){
 
@@ -109,7 +142,7 @@ employerForm.addEventListener(
 
 "submit",
 
-async function(e){
+async(e)=>{
 
 e.preventDefault();
 
@@ -122,49 +155,39 @@ collection(db,"employers"),
 {
 
 companyName:
-
 document.getElementById("companyName").value,
 
 contactPerson:
-
 document.getElementById("contactPerson").value,
 
 mobile:
-
 document.getElementById("companyMobile").value,
 
 email:
-
 document.getElementById("companyEmail").value,
 
 location:
-
 document.getElementById("companyLocation").value,
     jobTitle:
-
 document.getElementById("vacancyName").value,
 
 salary:
-
 document.getElementById("salary").value,
 
 vacancy:
-
 document.getElementById("vacancyCount").value,
 
 description:
-
 document.getElementById("jobDescription").value,
 
 createdAt:
-
 serverTimestamp()
 
 }
 
 );
 
-alert("Company Registered Successfully.");
+alert("Company Registered Successfully");
 
 employerForm.reset();
 
@@ -174,7 +197,7 @@ catch(error){
 
 console.error(error);
 
-alert("Registration Failed.");
+alert(error.message);
 
 }
 
@@ -184,11 +207,11 @@ alert("Registration Failed.");
 
 
 
-// ----------------------------
-// Vacancy Collection (Optional)
-// ----------------------------
+// ===================================
+// Vacancy Collection
+// ===================================
 
-async function addVacancy(data){
+export async function addVacancy(data){
 
 try{
 
@@ -200,7 +223,7 @@ collection(db,"vacancies"),
 
 ...data,
 
-createdAt: serverTimestamp()
+createdAt:serverTimestamp()
 
 }
 
@@ -220,11 +243,11 @@ console.error(error);
 
 
 
-// ----------------------------
-// Application Collection (Optional)
-// ----------------------------
+// ===================================
+// Application Collection
+// ===================================
 
-async function addApplication(data){
+export async function addApplication(data){
 
 try{
 
@@ -236,7 +259,7 @@ collection(db,"applications"),
 
 ...data,
 
-createdAt: serverTimestamp()
+createdAt:serverTimestamp()
 
 }
 
@@ -256,4 +279,8 @@ console.error(error);
 
 
 
-console.log("Rudra Consultancy Database Connected");
+// ===================================
+// Database Connected
+// ===================================
+
+console.log("Rudra Consultancy Database Connected Successfully");
