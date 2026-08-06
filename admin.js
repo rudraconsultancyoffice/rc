@@ -1,21 +1,53 @@
 // Rudra Consultancy Admin Panel
-// Firebase Live Data
+// Login Protected Admin Access
 // Owner: Sakshi
 
 
-import { db } from "./firebase-config.js";
-
+import { auth, db } from "./firebase-config.js";
 
 import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-collection,
-getDocs
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+// Check Admin Login
+
+onAuthStateChanged(auth, (user) => {
+
+    if(!user){
+
+        window.location.href = "login.html";
+
+    }
+
+});
+
+
+
+
+// Logout Function
+
+const logoutBtn = document.getElementById("logoutBtn");
+
+
+if(logoutBtn){
+
+    logoutBtn.addEventListener("click", async()=>{
+
+        await signOut(auth);
+
+        window.location.href = "login.html";
+
+    });
 
 }
-
-from
-
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 
@@ -24,78 +56,55 @@ from
 
 // Load Candidates
 
-
 async function loadCandidates(){
 
-
-const table =
-document.getElementById("candidateTable");
+    const table = document.getElementById("candidateTable");
 
 
-try{
+    if(!table) return;
 
 
-const snapshot = await getDocs(
-
-collection(db,"candidates")
-
-);
+    const snapshot = await getDocs(
+        collection(db,"candidates")
+    );
 
 
-
-table.innerHTML = "";
-
+    table.innerHTML="";
 
 
-snapshot.forEach((doc)=>{
+    snapshot.forEach((doc)=>{
 
 
-const data = doc.data();
+        const data = doc.data();
 
 
+        table.innerHTML += `
 
-table.innerHTML += `
+        <tr>
 
-<tr>
+        <td>${data.name || ""}</td>
 
-<td>${data.name || ""}</td>
+        <td>${data.mobile || ""}</td>
 
-<td>${data.mobile || ""}</td>
+        <td>${data.email || ""}</td>
 
-<td>${data.email || ""}</td>
+        <td>${data.qualification || ""}</td>
 
-<td>${data.qualification || ""}</td>
+        <td>${data.experience || ""}</td>
 
-<td>${data.experience || ""}</td>
+        </tr>
 
-</tr>
-
-`;
-
+        `;
 
 
-});
+    });
 
 
-
-document.getElementById("candidateCount").innerText =
-snapshot.size;
-
+    document.getElementById("candidateCount").innerText =
+    snapshot.size;
 
 
 }
-
-
-catch(error){
-
-console.log(error);
-
-}
-
-
-}
-
-
 
 
 
@@ -105,78 +114,53 @@ console.log(error);
 
 // Load Employers
 
-
 async function loadEmployers(){
 
-
-const table =
-document.getElementById("employerTable");
+    const table = document.getElementById("employerTable");
 
 
-
-try{
-
-
-const snapshot = await getDocs(
-
-collection(db,"employers")
-
-);
+    if(!table) return;
 
 
-
-table.innerHTML = "";
-
-
-
-snapshot.forEach((doc)=>{
+    const snapshot = await getDocs(
+        collection(db,"employers")
+    );
 
 
-const data = doc.data();
+    table.innerHTML="";
 
 
-
-table.innerHTML += `
-
-<tr>
-
-<td>${data.companyName || ""}</td>
-
-<td>${data.contactPerson || ""}</td>
-
-<td>${data.mobile || ""}</td>
-
-<td>${data.email || ""}</td>
-
-</tr>
-
-`;
+    snapshot.forEach((doc)=>{
 
 
-
-});
-
+        const data = doc.data();
 
 
-document.getElementById("employerCount").innerText =
-snapshot.size;
+        table.innerHTML += `
 
+        <tr>
+
+        <td>${data.companyName || ""}</td>
+
+        <td>${data.contactPerson || ""}</td>
+
+        <td>${data.mobile || ""}</td>
+
+        <td>${data.email || ""}</td>
+
+        </tr>
+
+        `;
+
+
+    });
+
+
+    document.getElementById("employerCount").innerText =
+    snapshot.size;
 
 
 }
-
-
-
-catch(error){
-
-console.log(error);
-
-}
-
-
-}
-
-
 
 
 
@@ -186,72 +170,50 @@ console.log(error);
 
 // Load Vacancies
 
-
 async function loadVacancies(){
 
-
-const table =
-document.getElementById("vacancyTable");
+    const table = document.getElementById("vacancyTable");
 
 
-
-try{
-
-
-const snapshot = await getDocs(
-
-collection(db,"vacancies")
-
-);
+    if(!table) return;
 
 
-
-table.innerHTML = "";
-
-
-
-snapshot.forEach((doc)=>{
+    const snapshot = await getDocs(
+        collection(db,"vacancies")
+    );
 
 
-const data = doc.data();
+    table.innerHTML="";
 
 
-
-table.innerHTML += `
-
-<tr>
-
-<td>${data.jobTitle || ""}</td>
-
-<td>${data.location || ""}</td>
-
-<td>${data.salary || ""}</td>
-
-<td>${data.status || ""}</td>
-
-</tr>
-
-`;
+    snapshot.forEach((doc)=>{
 
 
-
-});
-
+        const data = doc.data();
 
 
-document.getElementById("vacancyCount").innerText =
-snapshot.size;
+        table.innerHTML += `
+
+        <tr>
+
+        <td>${data.jobTitle || ""}</td>
+
+        <td>${data.location || ""}</td>
+
+        <td>${data.salary || ""}</td>
+
+        <td>${data.status || ""}</td>
+
+        </tr>
+
+        `;
 
 
+    });
 
-}
 
-
-catch(error){
-
-console.log(error);
-
-}
+    document.getElementById("vacancyCount").innerText =
+    snapshot.size;
 
 
 }
@@ -261,86 +223,7 @@ console.log(error);
 
 
 
-
-
-
-// Load Applications
-
-
-async function loadApplications(){
-
-
-const table =
-document.getElementById("applicationTable");
-
-
-
-try{
-
-
-const snapshot = await getDocs(
-
-collection(db,"applications")
-
-);
-
-
-
-table.innerHTML = "";
-
-
-
-snapshot.forEach((doc)=>{
-
-
-const data = doc.data();
-
-
-
-table.innerHTML += `
-
-<tr>
-
-<td>${data.candidateName || ""}</td>
-
-<td>${data.jobApplied || ""}</td>
-
-<td>${data.mobile || ""}</td>
-
-<td>${data.status || ""}</td>
-
-</tr>
-
-`;
-
-
-
-});
-
-
-
-}
-
-
-catch(error){
-
-console.log(error);
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-
-// Start Loading Data
-
+// Start Dashboard
 
 loadCandidates();
 
@@ -348,14 +231,5 @@ loadEmployers();
 
 loadVacancies();
 
-loadApplications();
 
-
-
-
-
-console.log(
-
-"Rudra Consultancy Admin Panel Connected\nOwner: Sakshi"
-
-);
+console.log("Rudra Consultancy Admin Secure Panel Loaded");
