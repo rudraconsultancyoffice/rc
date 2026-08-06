@@ -143,3 +143,20 @@ a:hover{
     background:#FFD700;
     color:#000;
 }
+.whatsapp-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    color:#fff;
+    padding:15px 20px;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+    z-index:1000;
+}
+
+.whatsapp-btn:hover{
+    background:#128C7E;
+}
