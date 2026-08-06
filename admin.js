@@ -1,7 +1,4 @@
-// Rudra Consultancy Admin Panel
-// Login Protected Admin Access
-// Owner: Sakshi
-
+// admin.js
 
 import { auth, db } from "./firebase-config.js";
 
@@ -17,29 +14,36 @@ import {
 
 
 
-// Check Admin Login
+// --------------------
+// Login Protection
+// --------------------
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
 
-    if(!user){
+    if (!user) {
 
         window.location.href = "login.html";
+        return;
 
     }
+
+    loadCandidates();
+    loadEmployers();
+    loadVacancies();
 
 });
 
 
 
-
-// Logout Function
+// --------------------
+// Logout
+// --------------------
 
 const logoutBtn = document.getElementById("logoutBtn");
 
+if (logoutBtn) {
 
-if(logoutBtn){
-
-    logoutBtn.addEventListener("click", async()=>{
+    logoutBtn.addEventListener("click", async () => {
 
         await signOut(auth);
 
@@ -51,185 +55,133 @@ if(logoutBtn){
 
 
 
+// --------------------
+// Candidates
+// --------------------
 
+async function loadCandidates() {
 
+    const tbody = document.getElementById("candidateTable");
 
-// Load Candidates
+    if (!tbody) return;
 
-async function loadCandidates(){
+    tbody.innerHTML = "";
 
-    const table = document.getElementById("candidateTable");
-
-
-    if(!table) return;
-
-
-    const snapshot = await getDocs(
-        collection(db,"candidates")
-    );
-
-
-    table.innerHTML="";
-
-
-    snapshot.forEach((doc)=>{
-
-
-        const data = doc.data();
-
-
-        table.innerHTML += `
-
-        <tr>
-
-        <td>${data.name || ""}</td>
-
-        <td>${data.mobile || ""}</td>
-
-        <td>${data.email || ""}</td>
-
-        <td>${data.qualification || ""}</td>
-
-        <td>${data.experience || ""}</td>
-
-        </tr>
-
-        `;
-
-
-    });
-
+    const snapshot = await getDocs(collection(db, "candidates"));
 
     document.getElementById("candidateCount").innerText =
-    snapshot.size;
+        snapshot.size;
 
+    snapshot.forEach((doc) => {
+
+        const data = doc.data();
+
+        tbody.innerHTML += `
+
+<tr>
+
+<td>${data.name || ""}</td>
+
+<td>${data.mobile || ""}</td>
+
+<td>${data.email || ""}</td>
+
+<td>${data.qualification || ""}</td>
+
+<td>${data.experience || ""}</td>
+
+</tr>
+
+`;
+
+    });
 
 }
 
 
 
+// --------------------
+// Employers
+// --------------------
 
+async function loadEmployers() {
 
+    const tbody = document.getElementById("employerTable");
 
+    if (!tbody) return;
 
-// Load Employers
+    tbody.innerHTML = "";
 
-async function loadEmployers(){
-
-    const table = document.getElementById("employerTable");
-
-
-    if(!table) return;
-
-
-    const snapshot = await getDocs(
-        collection(db,"employers")
-    );
-
-
-    table.innerHTML="";
-
-
-    snapshot.forEach((doc)=>{
-
-
-        const data = doc.data();
-
-
-        table.innerHTML += `
-
-        <tr>
-
-        <td>${data.companyName || ""}</td>
-
-        <td>${data.contactPerson || ""}</td>
-
-        <td>${data.mobile || ""}</td>
-
-        <td>${data.email || ""}</td>
-
-        </tr>
-
-        `;
-
-
-    });
-
+    const snapshot = await getDocs(collection(db, "employers"));
 
     document.getElementById("employerCount").innerText =
-    snapshot.size;
+        snapshot.size;
 
-
-}
-
-
-
-
-
-
-
-// Load Vacancies
-
-async function loadVacancies(){
-
-    const table = document.getElementById("vacancyTable");
-
-
-    if(!table) return;
-
-
-    const snapshot = await getDocs(
-        collection(db,"vacancies")
-    );
-
-
-    table.innerHTML="";
-
-
-    snapshot.forEach((doc)=>{
-
+    snapshot.forEach((doc) => {
 
         const data = doc.data();
 
+        tbody.innerHTML += `
 
-        table.innerHTML += `
+<tr>
 
-        <tr>
+<td>${data.companyName || ""}</td>
 
-        <td>${data.jobTitle || ""}</td>
+<td>${data.contactPerson || ""}</td>
 
-        <td>${data.location || ""}</td>
+<td>${data.mobile || ""}</td>
 
-        <td>${data.salary || ""}</td>
+<td>${data.email || ""}</td>
 
-        <td>${data.status || ""}</td>
+</tr>
 
-        </tr>
-
-        `;
-
+`;
 
     });
-
-
-    document.getElementById("vacancyCount").innerText =
-    snapshot.size;
-
 
 }
 
 
 
+// --------------------
+// Vacancies
+// --------------------
 
+async function loadVacancies() {
 
+    const tbody = document.getElementById("vacancyTable");
 
-// Start Dashboard
+    if (!tbody) return;
 
-loadCandidates();
+    tbody.innerHTML = "";
 
-loadEmployers();
+    const snapshot = await getDocs(collection(db, "vacancies"));
 
-loadVacancies();
+    document.getElementById("vacancyCount").innerText =
+        snapshot.size;
 
+    snapshot.forEach((doc) => {
 
-console.log("Rudra Consultancy Admin Secure Panel Loaded");
+        const data = doc.data();
+
+        tbody.innerHTML += `
+
+<tr>
+
+<td>${data.jobTitle || ""}</td>
+
+<td>${data.location || ""}</td>
+
+<td>${data.salary || ""}</td>
+
+<td>${data.status || "Open"}</td>
+
+</tr>
+
+`;
+
+    });
+
+}
+
+console.log("Rudra Consultancy Admin Dashboard Ready");
