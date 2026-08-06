@@ -779,10 +779,14 @@ document.getElementById("vacancyMessage").innerText =
 
 vacancyForm.reset();
 
+loadCandidates();
+
+loadEmployers();
 
 loadDashboard();
-  
+
 loadVacancies();
+
 
 });
 
