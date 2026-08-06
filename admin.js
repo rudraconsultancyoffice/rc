@@ -553,3 +553,80 @@ loadDashboard();
 
 
 console.log("Admin Dashboard Ready");
+// ===============================
+// Add Vacancy
+// Rudra Consultancy
+// ===============================
+
+import {
+addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+const vacancyForm = document.getElementById("vacancyForm");
+
+
+if(vacancyForm){
+
+
+vacancyForm.addEventListener("submit", async(e)=>{
+
+
+e.preventDefault();
+
+
+
+const vacancyData = {
+
+
+jobTitle:
+document.getElementById("jobTitle").value,
+
+
+location:
+document.getElementById("jobLocation").value,
+
+
+salary:
+document.getElementById("jobSalary").value,
+
+
+qualification:
+document.getElementById("jobQualification").value,
+
+
+status:"Active",
+
+
+createdAt:
+new Date()
+
+
+};
+
+
+
+await addDoc(
+
+collection(db,"vacancies"),
+
+vacancyData
+
+);
+
+
+
+document.getElementById("vacancyMessage").innerText =
+"Vacancy Added Successfully";
+
+
+vacancyForm.reset();
+
+
+loadDashboard();
+
+
+});
+
+
+}
