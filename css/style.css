@@ -109,3 +109,37 @@ footer{
     padding:15px;
     margin-top:40px;
 }
+h2{
+    color:#0B3D91;
+    margin-bottom:20px;
+}
+
+h3{
+    color:#0B3D91;
+    margin-top:20px;
+}
+
+hr{
+    margin:25px 0;
+    border:0;
+    border-top:1px solid #ddd;
+}
+
+div{
+    padding:10px 0;
+}
+
+a{
+    display:inline-block;
+    background:#0B3D91;
+    color:white;
+    padding:10px 20px;
+    border-radius:6px;
+    text-decoration:none;
+    margin:10px 5px;
+}
+
+a:hover{
+    background:#FFD700;
+    color:#000;
+}
