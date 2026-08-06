@@ -1,10 +1,9 @@
 // ===============================
 // Rudra Consultancy
 // database.js
-// FINAL PART 1
 // ===============================
 
-import { app, db } from "./firebase-config.js";
+import { db } from "./firebase-config.js";
 
 import {
 addDoc,
@@ -13,15 +12,7 @@ serverTimestamp
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import {
-getStorage,
-ref,
-uploadBytes,
-getDownloadURL
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
-const storage = getStorage(app);
 
 // ===============================
 // Candidate Registration
@@ -32,64 +23,11 @@ document.getElementById("candidateForm");
 
 if(candidateForm){
 
-candidateForm.addEventListener(
-
-"submit",
-
-async(e)=>{
+candidateForm.addEventListener("submit",async(e)=>{
 
 e.preventDefault();
 
 try{
-
-const name =
-document.getElementById("candidateName").value.trim();
-
-const mobile =
-document.getElementById("candidateMobile").value.trim();
-
-const email =
-document.getElementById("candidateEmail").value.trim();
-
-const qualification =
-document.getElementById("candidateQualification").value.trim();
-
-const experience =
-document.getElementById("candidateExperience").value.trim();
-
-const preferredJob =
-document.getElementById("candidateJob").value.trim();
-
-const address =
-document.getElementById("candidateAddress").value.trim();
-
-const resumeFile =
-document.getElementById("candidateResume").files[0];
-
-let resumeURL="";
-
-if(resumeFile){
-
-const fileRef = ref(
-
-storage,
-
-"resumes/"+Date.now()+"_"+resumeFile.name
-
-);
-
-await uploadBytes(
-
-fileRef,
-
-resumeFile
-
-);
-
-resumeURL =
-await getDownloadURL(fileRef);
-
-}
 
 await addDoc(
 
@@ -97,23 +35,29 @@ collection(db,"candidates"),
 
 {
 
-name,
+name:
+document.getElementById("candidateName").value.trim(),
 
-mobile,
+mobile:
+document.getElementById("candidateMobile").value.trim(),
 
-email,
+email:
+document.getElementById("candidateEmail").value.trim(),
 
-qualification,
+qualification:
+document.getElementById("candidateQualification").value.trim(),
 
-experience,
+experience:
+document.getElementById("candidateExperience").value.trim(),
 
-preferredJob,
+preferredJob:
+document.getElementById("candidateJob").value.trim(),
 
-address,
+address:
+document.getElementById("candidateAddress").value.trim(),
 
-resume:resumeURL,
-
-createdAt:serverTimestamp()
+createdAt:
+serverTimestamp()
 
 }
 
@@ -129,17 +73,15 @@ catch(error){
 
 console.error(error);
 
-alert(
-
-"Error : "+error.message
-
-);
+alert(error.message);
 
 }
 
 });
 
 }
+
+
 
 // ===============================
 // Employer Registration
@@ -150,11 +92,7 @@ document.getElementById("employerForm");
 
 if(employerForm){
 
-employerForm.addEventListener(
-
-"submit",
-
-async(e)=>{
+employerForm.addEventListener("submit",async(e)=>{
 
 e.preventDefault();
 
@@ -167,19 +105,20 @@ collection(db,"employers"),
 {
 
 companyName:
-document.getElementById("companyName").value,
+document.getElementById("companyName").value.trim(),
 
 contactPerson:
-document.getElementById("contactPerson").value,
+document.getElementById("contactPerson").value.trim(),
 
 mobile:
-document.getElementById("companyMobile").value,
+document.getElementById("companyMobile").value.trim(),
 
 email:
-document.getElementById("companyEmail").value,
+document.getElementById("companyEmail").value.trim(),
 
 location:
-document.getElementById("companyLocation").value,
+document.getElementById("companyLocation").value.trim(),
+
 jobTitle:
 document.getElementById("vacancyName").value.trim(),
 
@@ -209,9 +148,7 @@ catch(error){
 
 console.error(error);
 
-alert(
-"Error : " + error.message
-);
+alert(error.message);
 
 }
 
@@ -219,13 +156,13 @@ alert(
 
 }
 
+
+
 // ===============================
-// Vacancy Collection
+// Vacancy
 // ===============================
 
 export async function addVacancy(data){
-
-try{
 
 await addDoc(
 
@@ -235,31 +172,22 @@ collection(db,"vacancies"),
 
 ...data,
 
-createdAt:serverTimestamp()
+createdAt:
+serverTimestamp()
 
 }
 
 );
 
-console.log("Vacancy Saved");
-
 }
 
-catch(error){
 
-console.error(error);
-
-}
-
-}
 
 // ===============================
-// Application Collection
+// Application
 // ===============================
 
 export async function addApplication(data){
-
-try{
 
 await addDoc(
 
@@ -269,26 +197,15 @@ collection(db,"applications"),
 
 ...data,
 
-createdAt:serverTimestamp()
+createdAt:
+serverTimestamp()
 
 }
 
 );
 
-console.log("Application Saved");
-
 }
 
-catch(error){
 
-console.error(error);
 
-}
-
-}
-
-// ===============================
-// Database Ready
-// ===============================
-
-console.log("Rudra Consultancy Database Connected Successfully");
+console.log("Rudra Consultancy Database Connected");
