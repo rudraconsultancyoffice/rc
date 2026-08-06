@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Rudra Consultancy Admin Panel</title>
@@ -22,7 +23,10 @@
 
 <p>Admin Panel</p>
 
+<p>Owner: Sakshi</p>
+
 </header>
+
 
 
 
@@ -30,9 +34,11 @@
 <div class="dashboard">
 
 
+
 <aside class="sidebar">
 
-<h2>Dashboard</h2>
+
+<h2>Menu</h2>
 
 
 <a href="#candidates">
@@ -55,10 +61,6 @@ Applications
 </a>
 
 
-<a href="#settings">
-Settings
-</a>
-
 
 </aside>
 
@@ -66,7 +68,12 @@ Settings
 
 
 
+
+
 <main class="content">
+
+
+
 
 
 <section class="cards">
@@ -117,60 +124,50 @@ Settings
 
 
 
+
+
 <section id="candidates">
 
 
 <h2>Candidate Management</h2>
 
 
+<div class="table-box">
+
 <table>
 
+
+<thead>
 
 <tr>
 
 <th>Name</th>
+
 <th>Mobile</th>
+
+<th>Email</th>
+
 <th>Qualification</th>
-<th>Action</th>
+
+<th>Experience</th>
 
 </tr>
 
+</thead>
 
 
-<tr>
-
-<td>
-Demo Candidate
-</td>
+<tbody id="candidateTable">
 
 
-<td>
-0000000000
-</td>
-
-
-<td>
-Graduate
-</td>
-
-
-<td>
-
-<button>
-View
-</button>
-
-</td>
-
-
-</tr>
+</tbody>
 
 
 </table>
 
+</div>
+
 
 </section>
-
 
 
 
@@ -186,50 +183,37 @@ View
 <h2>Employer Management</h2>
 
 
+<div class="table-box">
+
 <table>
 
+
+<thead>
 
 <tr>
 
 <th>Company</th>
-<th>Contact</th>
+
+<th>Contact Person</th>
+
 <th>Mobile</th>
-<th>Action</th>
+
+<th>Email</th>
 
 </tr>
 
+</thead>
 
 
-<tr>
-
-<td>
-Demo Company
-</td>
+<tbody id="employerTable">
 
 
-<td>
-HR Manager
-</td>
-
-
-<td>
-0000000000
-</td>
-
-
-<td>
-
-<button>
-View
-</button>
-
-</td>
-
-
-</tr>
+</tbody>
 
 
 </table>
+
+</div>
 
 
 </section>
@@ -248,42 +232,41 @@ View
 <h2>Vacancy Management</h2>
 
 
-
-<form>
-
-
-<input 
-type="text"
-placeholder="Job Title"
->
+<div class="table-box">
 
 
-<input
-type="text"
-placeholder="Location"
->
+<table>
 
 
-<input
-type="text"
-placeholder="Salary"
->
+<thead>
+
+<tr>
+
+<th>Job Title</th>
+
+<th>Location</th>
+
+<th>Salary</th>
+
+<th>Status</th>
+
+</tr>
 
 
-
-<textarea
-placeholder="Job Description">
-</textarea>
+</thead>
 
 
 
-<button>
-Add Vacancy
-</button>
+<tbody id="vacancyTable">
 
 
+</tbody>
 
-</form>
+
+</table>
+
+
+</div>
 
 
 </section>
@@ -302,48 +285,45 @@ Add Vacancy
 <h2>Application Management</h2>
 
 
-<p>
-Candidate applications will appear here.
-</p>
+<div class="table-box">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>Candidate</th>
+
+<th>Job</th>
+
+<th>Mobile</th>
+
+<th>Status</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody id="applicationTable">
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
 
 
 </section>
 
 
-
-
-
-
-
-
-<section id="settings">
-
-
-<h2>Admin Details</h2>
-
-
-<p>
-Owner: Sakshi
-</p>
-
-
-<p>
-Rudra Consultancy
-</p>
-
-
-<p>
-Mobile: 6398030135
-</p>
-
-
-<p>
-Email: rudraconsultancy.office@gmail.com
-</p>
-
-
-
-</section>
 
 
 
@@ -351,6 +331,7 @@ Email: rudraconsultancy.office@gmail.com
 
 
 </div>
+
 
 
 
