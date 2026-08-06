@@ -195,70 +195,88 @@ Apply Now
 
 
 
-loadVacancies();
+
+
+});
+
+
+}
 // ===============================
-// Candidate Registration Save
+// Employer Registration Save
 // ===============================
 
-import { db } from "./firebase-config.js";
-
-import {
-addDoc,
-collection
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const employerForm =
+document.getElementById("employerForm");
 
 
-const candidateForm =
-document.getElementById("candidateForm");
+if(employerForm){
 
+employerForm.addEventListener("submit", async(e)=>{
 
-if(candidateForm){
-
-candidateForm.addEventListener("submit", async(e)=>{
 
 e.preventDefault();
 
 
-const candidateData = {
+const employerData = {
 
-name:
-document.getElementById("candidateName").value,
+
+companyName:
+document.getElementById("companyName").value,
+
+
+contactPerson:
+document.getElementById("contactPerson").value,
+
 
 mobile:
-document.getElementById("candidateMobile").value,
+document.getElementById("companyMobile").value,
+
 
 email:
-document.getElementById("candidateEmail").value,
+document.getElementById("companyEmail").value,
 
-qualification:
-document.getElementById("candidateQualification").value,
 
-experience:
-document.getElementById("candidateExperience").value,
+location:
+document.getElementById("companyLocation").value,
 
-preferredJob:
-document.getElementById("candidateJob").value,
 
-address:
-document.getElementById("candidateAddress").value,
+vacancy:
+document.getElementById("vacancyName").value,
+
+
+salary:
+document.getElementById("salary").value,
+
+
+vacancyCount:
+document.getElementById("vacancyCount").value,
+
+
+description:
+document.getElementById("jobDescription").value,
+
 
 createdAt:new Date()
+
 
 };
 
 
 
 await addDoc(
-collection(db,"candidates"),
-candidateData
+
+collection(db,"employers"),
+
+employerData
+
 );
 
 
 
-alert("Registration Successful");
+alert("Company Registration Successful");
 
 
-candidateForm.reset();
+employerForm.reset();
 
 
 });
