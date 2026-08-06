@@ -1,0 +1,293 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+body{
+    background:#f4f8ff;
+    color:#222;
+}
+
+
+
+/* Header */
+
+.admin-header{
+
+    background:#064a9b;
+    color:white;
+    padding:25px;
+    text-align:center;
+
+}
+
+
+.admin-header h1{
+
+    font-size:30px;
+
+}
+
+
+.admin-header p{
+
+    margin-top:5px;
+
+}
+
+
+
+
+
+/* Dashboard Layout */
+
+
+.dashboard{
+
+    display:flex;
+    min-height:100vh;
+
+}
+
+
+
+/* Sidebar */
+
+
+.sidebar{
+
+    width:250px;
+    background:#083b82;
+    padding:25px;
+
+}
+
+
+.sidebar h2{
+
+    color:white;
+    margin-bottom:25px;
+
+}
+
+
+.sidebar a{
+
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,0.2);
+
+}
+
+
+.sidebar a:hover{
+
+    color:#ffd700;
+
+}
+
+
+
+
+
+/* Content */
+
+
+.content{
+
+    flex:1;
+    padding:30px;
+
+}
+
+
+
+
+
+/* Cards */
+
+
+.cards{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+
+}
+
+
+.card{
+
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    text-align:center;
+
+}
+
+
+.card h3{
+
+    color:#064a9b;
+
+}
+
+
+.card p{
+
+    font-size:30px;
+    margin-top:10px;
+    font-weight:bold;
+
+}
+
+
+
+
+
+
+/* Sections */
+
+
+section{
+
+    background:white;
+    padding:25px;
+    margin-bottom:25px;
+    border-radius:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+
+}
+
+
+
+section h2{
+
+    color:#064a9b;
+    margin-bottom:20px;
+
+}
+
+
+
+
+
+/* Tables */
+
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+
+th,
+td{
+
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+
+}
+
+
+th{
+
+    background:#064a9b;
+    color:white;
+
+}
+
+
+
+
+
+/* Forms */
+
+
+input,
+textarea{
+
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+
+}
+
+
+textarea{
+
+    height:120px;
+
+}
+
+
+
+
+button{
+
+    background:#064a9b;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:5px;
+    cursor:pointer;
+
+}
+
+
+button:hover{
+
+    background:#032d61;
+
+}
+
+
+
+
+
+/* Mobile */
+
+@media(max-width:768px){
+
+
+.dashboard{
+
+    flex-direction:column;
+
+}
+
+
+.sidebar{
+
+    width:100%;
+
+}
+
+
+.content{
+
+    padding:15px;
+
+}
+
+
+table{
+
+    font-size:13px;
+
+}
+
+
+}
