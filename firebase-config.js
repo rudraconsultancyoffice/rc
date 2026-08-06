@@ -16,27 +16,33 @@ import { getAuth } from
 
 
 
+// Firebase Configuration
+
 const firebaseConfig = {
 
-apiKey: "AIzaSyAnG7ztQmUOwGZH7ju6pbRs87TYTttJets",
+    apiKey: "AIzaSyAnG7ztQmUOwGZH7ju6pbRs87TYTttJets",
 
-authDomain: "rudra-consultancy-a5546.firebaseapp.com",
+    authDomain: "rudra-consultancy-a5546.firebaseapp.com",
 
-projectId: "rudra-consultancy-a5546",
+    projectId: "rudra-consultancy-a5546",
 
-storageBucket: "rudra-consultancy-a5546.firebasestorage.app",
+    storageBucket: "rudra-consultancy-a5546.firebasestorage.app",
 
-messagingSenderId: "33421654879",
+    messagingSenderId: "33421654879",
 
-appId: "1:33421654879:web:f88137b58f64cd2713d4ea",
+    appId: "1:33421654879:web:f88137b58f64cd2713d4ea",
 
-measurementId: "G-2EDVJV1BHE"
+    measurementId: "G-2EDVJV1BHE"
 
 };
 
 
 
+
+// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
+
 
 
 const db = getFirestore(app);
@@ -49,12 +55,21 @@ const auth = getAuth(app);
 
 
 
+
+// Export Firebase Services
+
 export {
+
     app,
+
     db,
+
     storage,
+
     auth
+
 };
+
 
 
 console.log("Rudra Consultancy Firebase Connected");
