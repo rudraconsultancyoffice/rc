@@ -196,3 +196,72 @@ Apply Now
 
 
 loadVacancies();
+// ===============================
+// Candidate Registration Save
+// ===============================
+
+import { db } from "./firebase-config.js";
+
+import {
+addDoc,
+collection
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+const candidateForm =
+document.getElementById("candidateForm");
+
+
+if(candidateForm){
+
+candidateForm.addEventListener("submit", async(e)=>{
+
+e.preventDefault();
+
+
+const candidateData = {
+
+name:
+document.getElementById("candidateName").value,
+
+mobile:
+document.getElementById("candidateMobile").value,
+
+email:
+document.getElementById("candidateEmail").value,
+
+qualification:
+document.getElementById("candidateQualification").value,
+
+experience:
+document.getElementById("candidateExperience").value,
+
+preferredJob:
+document.getElementById("candidateJob").value,
+
+address:
+document.getElementById("candidateAddress").value,
+
+createdAt:new Date()
+
+};
+
+
+
+await addDoc(
+collection(db,"candidates"),
+candidateData
+);
+
+
+
+alert("Registration Successful");
+
+
+candidateForm.reset();
+
+
+});
+
+
+}
