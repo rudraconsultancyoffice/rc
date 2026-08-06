@@ -1,267 +1,259 @@
-// Rudra Consultancy Database File
-// Owner: Sakshi
-
+// Rudra Consultancy Database
+// Part 1
 
 import { db } from "./firebase-config.js";
 
-
 import {
-    collection,
-    addDoc,
-    serverTimestamp
-} from 
+addDoc,
+collection,
+serverTimestamp
+}
+from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 
+// ----------------------------
+// Candidate Registration
+// ----------------------------
 
+const candidateForm =
+document.getElementById("candidateForm");
 
-// Candidate Registration Save
-
-
-const candidateForm = document.getElementById("candidateForm");
 
 
 if(candidateForm){
 
+candidateForm.addEventListener("submit",
 
-candidateForm.addEventListener("submit", async function(e){
+async function(e){
 
+e.preventDefault();
 
-    e.preventDefault();
+try{
 
+await addDoc(
 
-    const candidateData = {
+collection(db,"candidates"),
 
-        name: this[0].value,
+{
 
-        mobile: this[1].value,
+name:
 
-        email: this[2].value,
+document.getElementById("candidateName").value,
 
-        qualification: this[3].value,
+mobile:
 
-        experience: this[4].value,
+document.getElementById("candidateMobile").value,
 
-        preferredJob: this[5].value,
+email:
 
-        address: this[6].value,
+document.getElementById("candidateEmail").value,
 
-        status: "new",
+qualification:
 
-        createdAt: serverTimestamp()
+document.getElementById("candidateQualification").value,
 
-    };
+experience:
 
+document.getElementById("candidateExperience").value,
 
+preferredJob:
 
-    try{
+document.getElementById("candidateJob").value,
 
+address:
 
-        await addDoc(
+document.getElementById("candidateAddress").value,
 
-            collection(db,"candidates"),
+createdAt:
 
-            candidateData
+serverTimestamp()
 
-        );
+}
 
+);
 
-        alert(
-        "Candidate registration submitted successfully."
-        );
+alert("Candidate Registered Successfully.");
 
+candidateForm.reset();
 
-        candidateForm.reset();
+}
 
+catch(error){
 
-    }
+console.log(error);
 
-    catch(error){
+alert("Registration Failed.");
 
-
-        console.log(error);
-
-
-        alert(
-        "Something went wrong. Please try again."
-        );
-
-
-    }
-
-
+}
 
 });
-
 
 }
 
 
 
+// ----------------------------
+// Employer Registration
+// ----------------------------
 
-
-
-
-
-// Employer Registration Save
-
-
-
-const employerForm = document.getElementById("employerForm");
+const employerForm =
+document.getElementById("employerForm");
 
 
 
 if(employerForm){
 
+employerForm.addEventListener(
 
+"submit",
 
-employerForm.addEventListener("submit", async function(e){
+async function(e){
 
+e.preventDefault();
 
+try{
 
-    e.preventDefault();
+await addDoc(
 
+collection(db,"employers"),
 
+{
 
-    const employerData = {
+companyName:
 
+document.getElementById("companyName").value,
 
-        companyName: this[0].value,
+contactPerson:
 
+document.getElementById("contactPerson").value,
 
-        contactPerson: this[1].value,
+mobile:
 
+document.getElementById("companyMobile").value,
 
-        mobile: this[2].value,
+email:
 
+document.getElementById("companyEmail").value,
 
-        email: this[3].value,
+location:
 
+document.getElementById("companyLocation").value,
+    jobTitle:
 
-        requirement: this[4].value,
+document.getElementById("vacancyName").value,
 
+salary:
 
-        status:"new",
+document.getElementById("salary").value,
 
+vacancy:
 
-        createdAt:serverTimestamp()
+document.getElementById("vacancyCount").value,
 
+description:
 
-    };
+document.getElementById("jobDescription").value,
 
+createdAt:
 
+serverTimestamp()
 
+}
 
+);
 
-    try{
+alert("Company Registered Successfully.");
 
+employerForm.reset();
 
-        await addDoc(
+}
 
-            collection(db,"employers"),
+catch(error){
 
-            employerData
+console.error(error);
 
-        );
+alert("Registration Failed.");
 
-
-
-        alert(
-        "Company registration submitted successfully."
-        );
-
-
-        employerForm.reset();
-
-
-
-    }
-
-
-    catch(error){
-
-
-        console.log(error);
-
-
-        alert(
-        "Something went wrong."
-        );
-
-
-    }
-
-
-
+}
 
 });
 
-
 }
 
 
 
-
-
-
-
-
-// Add Vacancy Function
-
+// ----------------------------
+// Vacancy Collection (Optional)
+// ----------------------------
 
 async function addVacancy(data){
 
+try{
 
-    try{
+await addDoc(
 
+collection(db,"vacancies"),
 
-        await addDoc(
+{
 
-            collection(db,"vacancies"),
+...data,
 
-            {
+createdAt: serverTimestamp()
 
+}
 
-            ...data,
+);
 
+console.log("Vacancy Saved");
 
-            status:"active",
+}
 
+catch(error){
 
-            createdAt:serverTimestamp()
+console.error(error);
 
-
-            }
-
-        );
-
-
-
-        console.log(
-        "Vacancy Added Successfully"
-        );
-
-
-    }
-
-
-    catch(error){
-
-
-        console.log(error);
-
-
-    }
-
+}
 
 }
 
 
 
+// ----------------------------
+// Application Collection (Optional)
+// ----------------------------
+
+async function addApplication(data){
+
+try{
+
+await addDoc(
+
+collection(db,"applications"),
+
+{
+
+...data,
+
+createdAt: serverTimestamp()
+
+}
+
+);
+
+console.log("Application Saved");
+
+}
+
+catch(error){
+
+console.error(error);
+
+}
+
+}
 
 
 
-export {
-    addVacancy
-};
+console.log("Rudra Consultancy Database Connected");
