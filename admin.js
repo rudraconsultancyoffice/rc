@@ -152,7 +152,88 @@ loadDashboard();
 // ===========================
 
 async function loadEmployers(){
+// ===============================
+// Load Vacancies
+// ===============================
 
+const vacancyTable =
+document.getElementById("vacancyTable");
+
+
+async function loadVacancies(){
+
+if(!vacancyTable) return;
+
+
+vacancyTable.innerHTML="";
+
+
+const snapshot =
+await getDocs(
+collection(db,"vacancies")
+);
+
+
+
+snapshot.forEach((document)=>{
+
+
+const data=document.data();
+
+
+vacancyTable.innerHTML += `
+
+<tr>
+
+<td>${data.jobTitle || ""}</td>
+
+<td>${data.location || ""}</td>
+
+<td>${data.salary || ""}</td>
+
+<td>${data.status || "Active"}</td>
+
+<td>
+
+<button class="deleteBtn"
+onclick="deleteVacancy('${document.id}')">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+}
+
+
+
+
+window.deleteVacancy = async(id)=>{
+
+
+if(!confirm("Delete Vacancy ?"))
+return;
+
+
+await deleteDoc(
+doc(db,"vacancies",id)
+);
+
+
+loadVacancies();
+
+loadDashboard();
+
+
+};
 
 employerTable.innerHTML="";
 
@@ -700,7 +781,8 @@ vacancyForm.reset();
 
 
 loadDashboard();
-
+  
+loadVacancies();
 
 });
 
