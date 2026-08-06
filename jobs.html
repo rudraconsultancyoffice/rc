@@ -1,28 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Jobs - Rudra Consultancy</title>
+
 <link rel="stylesheet" href="css/style.css">
+
 </head>
+
+
 <body>
 
+
 <header>
+
 <h1>Rudra Consultancy</h1>
+
 </header>
 
+
+
 <section>
+
+
 <h2>Latest Job Vacancies</h2>
 
-<p>Computer Operator - Kashipur</p>
-<p>Receptionist - Kashipur</p>
-<p>HR Executive - Kashipur</p>
-<p>Sales Executive - Kashipur</p>
 
-<a href="index.html">← Back to Home</a>
+
+<div id="jobList">
+
+<p>Loading Jobs...</p>
+
+</div>
+
+
+
+<br>
+
+
+<a href="index.html">
+← Back to Home
+</a>
+
+
 
 </section>
 
+
+
+
+<script type="module">
+
+
+import { db } from "./firebase-config.js";
+
+
+import {
+
+collection,
+
+getDocs
+
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+const jobList =
+document.getElementById("jobList");
+
+
+
+async function loadJobs(){
+
+
+jobList.innerHTML = "";
+
+
+
+const snapshot =
+await getDocs(
+collection(db,"vacancies")
+);
+
+
+
+if(snapshot.empty){
+
+
+jobList.innerHTML =
+"<p>No vacancies available</p>";
+
+
+return;
+
+
+}
+
+
+
+snapshot.forEach((doc)=>{
+
+
+const data =
+doc.data();
+
+
+
+jobList.innerHTML += `
+
+
+<div class="card">
+
+
+<h3>${data.title || ""}</h3>
+
+
+<p><b>Location:</b> ${data.location || ""}</p>
+
+
+<p><b>Salary:</b> ${data.salary || ""}</p>
+
+
+<p><b>Qualification:</b> ${data.qualification || ""}</p>
+
+
+</div>
+
+
+<br>
+
+
+`;
+
+
+
+});
+
+
+}
+
+
+
+loadJobs();
+
+
+
+</script>
+
+
+
 </body>
-</html> 
+
+</html>
