@@ -107,3 +107,92 @@ footer.innerHTML =
 
 
 console.log("Rudra Consultancy Website Loaded");
+// ===============================
+// Load Vacancies From Firebase
+// Rudra Consultancy
+// ===============================
+
+import { db } from "./firebase-config.js";
+
+import {
+collection,
+getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+const jobContainer = document.getElementById("jobContainer");
+
+
+async function loadVacancies(){
+
+if(!jobContainer) return;
+
+
+jobContainer.innerHTML = "";
+
+
+const snapshot = await getDocs(
+collection(db,"vacancies")
+);
+
+
+if(snapshot.empty){
+
+jobContainer.innerHTML =
+"<p>No Latest Vacancies Available</p>";
+
+return;
+
+}
+
+
+
+snapshot.forEach((doc)=>{
+
+
+const data = doc.data();
+
+
+
+jobContainer.innerHTML += `
+
+<div class="job-box">
+
+<h3>${data.jobTitle || ""}</h3>
+
+<p>
+
+Location : ${data.location || ""}
+
+<br>
+
+Salary : ${data.salary || ""}
+
+<br>
+
+Qualification : ${data.qualification || ""}
+
+</p>
+
+
+<button class="apply-btn">
+
+Apply Now
+
+</button>
+
+
+</div>
+
+`;
+
+
+
+});
+
+
+}
+
+
+
+loadVacancies();
