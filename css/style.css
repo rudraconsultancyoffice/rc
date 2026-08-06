@@ -70,3 +70,42 @@ footer{
     padding:20px;
     margin-top:50px;
 } 
+header{
+    background:#0B3D91;
+    color:white;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);
+}
+
+nav{
+    margin-top:15px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 12px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#FFD700;
+}
+
+section{
+    max-width:900px;
+    margin:40px auto;
+    background:white;
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+footer{
+    background:#0B3D91;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+}
