@@ -3,8 +3,7 @@
 // admin.js FINAL
 // ===================================
 
-
-import { db } from "./firebase-config.js";
+import { db, auth } from "./firebase-config.js";
 
 
 import {
