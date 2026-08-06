@@ -1,3 +1,5 @@
+<!-- admin.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,129 +15,55 @@
 
 </head>
 
-
 <body>
-
 
 <header class="admin-header">
 
 <h1>Rudra Consultancy</h1>
 
-<p>Admin Panel</p>
+<p>Admin Dashboard</p>
 
-<p>Owner: Sakshi</p>
+<button id="logoutBtn">Logout</button>
 
 </header>
 
 
 
-
-
-<div class="dashboard">
-
-
-
-<aside class="sidebar">
-
-
-<h2>Menu</h2>
-
-
-<a href="#candidates">
-Candidates
-</a>
-
-
-<a href="#employers">
-Employers
-</a>
-
-
-<a href="#vacancies">
-Vacancies
-</a>
-
-
-<a href="#applications">
-Applications
-</a>
-
-
-
-</aside>
-
-
-
-
-
-
-
-<main class="content">
-
-
-
-
-
-<section class="cards">
-
+<section class="dashboard">
 
 <div class="card">
 
-<h3>Total Candidates</h3>
+<h2 id="candidateCount">0</h2>
 
-<p id="candidateCount">
-0
-</p>
+<p>Total Candidates</p>
 
 </div>
-
-
 
 <div class="card">
 
-<h3>Total Employers</h3>
+<h2 id="employerCount">0</h2>
 
-<p id="employerCount">
-0
-</p>
+<p>Total Employers</p>
 
 </div>
-
-
-
 
 <div class="card">
 
-<h3>Total Vacancies</h3>
+<h2 id="vacancyCount">0</h2>
 
-<p id="vacancyCount">
-0
-</p>
+<p>Total Vacancies</p>
 
 </div>
-
 
 </section>
 
 
 
+<section>
 
-
-
-
-
-
-
-<section id="candidates">
-
-
-<h2>Candidate Management</h2>
-
-
-<div class="table-box">
+<h2>Candidate List</h2>
 
 <table>
-
 
 <thead>
 
@@ -155,38 +83,21 @@ Applications
 
 </thead>
 
-
 <tbody id="candidateTable">
-
 
 </tbody>
 
-
 </table>
-
-</div>
-
 
 </section>
 
 
 
+<section>
 
-
-
-
-
-
-<section id="employers">
-
-
-<h2>Employer Management</h2>
-
-
-<div class="table-box">
+<h2>Employer List</h2>
 
 <table>
-
 
 <thead>
 
@@ -204,39 +115,21 @@ Applications
 
 </thead>
 
-
 <tbody id="employerTable">
-
 
 </tbody>
 
-
 </table>
-
-</div>
-
 
 </section>
 
 
 
+<section>
 
-
-
-
-
-
-<section id="vacancies">
-
-
-<h2>Vacancy Management</h2>
-
-
-<div class="table-box">
-
+<h2>Vacancy List</h2>
 
 <table>
-
 
 <thead>
 
@@ -252,93 +145,17 @@ Applications
 
 </tr>
 
-
 </thead>
-
-
 
 <tbody id="vacancyTable">
 
-
 </tbody>
-
 
 </table>
 
-
-</div>
-
-
 </section>
-
-
-
-
-
-
-
-
-
-<section id="applications">
-
-
-<h2>Application Management</h2>
-
-
-<div class="table-box">
-
-
-<table>
-
-
-<thead>
-
-<tr>
-
-<th>Candidate</th>
-
-<th>Job</th>
-
-<th>Mobile</th>
-
-<th>Status</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody id="applicationTable">
-
-
-</tbody>
-
-
-</table>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-</main>
-
-
-</div>
-
-
-
-
-
 
 <script type="module" src="admin.js"></script>
-
 
 </body>
 
