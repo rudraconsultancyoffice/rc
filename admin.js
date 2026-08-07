@@ -5,898 +5,392 @@
 
 import { db, auth } from "./firebase-config.js";
 
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 // ===============================
 // Admin Login Check
 // ===============================
 
-import {
-onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-
-onAuthStateChanged(auth,(user)=>{
-
-if(!user){
-
-window.location.href="login.html";
-
-}
-
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+  }
 });
-collection,
 
-getDocs,
+// ===============================
+// Elements
+// ===============================
 
-deleteDoc,
+const candidateTable = document.getElementById("candidateTable");
+const employerTable = document.getElementById("employerTable");
+const vacancyTable = document.getElementById("vacancyTable");
 
-doc,
+const vacancyForm = document.getElementById("vacancyForm");
+const vacancyMessage = document.getElementById("vacancyMessage");
 
-addDoc
+const logoutBtn = document.getElementById("logoutBtn");
 
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const searchBox = document.getElementById("searchCandidate");
 
-
-
-
-// Tables
-
-const candidateTable =
-document.getElementById("candidateTable");
-
-
-const employerTable =
-document.getElementById("employerTable");
-
-
-const vacancyTable =
-document.getElementById("vacancyTable");
-
-
-
-
-// ===========================
+// ===============================
 // Load Candidates
-// ===========================
+// ===============================
 
-async function loadCandidates(){
+async function loadCandidates() {
 
+  if (!candidateTable) return;
 
-candidateTable.innerHTML="";
+  candidateTable.innerHTML = "";
 
+  const snapshot = await getDocs(
+    collection(db, "candidates")
+  );
 
-const snapshot =
-await getDocs(
-collection(db,"candidates")
-);
+  snapshot.forEach((documentData) => {
 
+    const data = documentData.data();
 
+    candidateTable.innerHTML += `
 
-snapshot.forEach((document)=>{
+      <tr>
 
+        <td>${data.name || ""}</td>
 
-const data =
-document.data();
+        <td>${data.mobile || ""}</td>
 
+        <td>${data.email || ""}</td>
 
+        <td>${data.qualification || ""}</td>
 
-candidateTable.innerHTML += `
+        <td>${data.preferredJob || ""}</td>
 
+        <td>
 
-<tr>
+          <button
+            class="deleteBtn"
+            onclick="deleteCandidate('${documentData.id}')">
 
-<td>${data.name || ""}</td>
+            Delete
 
-<td>${data.mobile || ""}</td>
+          </button>
 
-<td>${data.email || ""}</td>
+        </td>
 
-<td>${data.qualification || ""}</td>
+      </tr>
 
-<td>${data.preferredJob || ""}</td>
+    `;
 
-
-<td>
-
-<button class="deleteBtn"
-
-onclick="deleteCandidate('${document.id}')">
-
-Delete
-
-</button>
-
-</td>
-
-
-</tr>
-
-
-`;
-
-
-});
-
+  });
 
 }
 
+window.deleteCandidate = async (id) => {
 
+  if (!confirm("Delete Candidate ?")) return;
 
+  await deleteDoc(
+    doc(db, "candidates", id)
+  );
 
-window.deleteCandidate = async(id)=>{
-
-
-if(!confirm("Delete Candidate ?"))
-return;
-
-
-await deleteDoc(
-doc(db,"candidates",id)
-);
-
-
-loadCandidates();
-
-loadDashboard();
-
+  loadCandidates();
+  loadDashboard();
 
 };
-
-
-
-
-
-// ===========================
+// ===============================
 // Load Employers
-// ===========================
+// ===============================
 
-async function loadEmployers(){
+async function loadEmployers() {
+
+  if (!employerTable) return;
+
+  employerTable.innerHTML = "";
+
+  const snapshot = await getDocs(
+    collection(db, "employers")
+  );
+
+  snapshot.forEach((documentData) => {
+
+    const data = documentData.data();
+
+    employerTable.innerHTML += `
+
+      <tr>
+
+        <td>${data.companyName || ""}</td>
+
+        <td>${data.contactPerson || ""}</td>
+
+        <td>${data.mobile || ""}</td>
+
+        <td>${data.email || ""}</td>
+
+        <td>
+
+          <button
+            class="deleteBtn"
+            onclick="deleteEmployer('${documentData.id}')">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+}
+
+window.deleteEmployer = async (id) => {
+
+  if (!confirm("Delete Employer ?")) return;
+
+  await deleteDoc(
+    doc(db, "employers", id)
+  );
+
+  loadEmployers();
+  loadDashboard();
+
+};
+
 // ===============================
 // Load Vacancies
 // ===============================
-// ===========================
-// Load Vacancies
-// ===========================
 
-const vacancyTable =
-document.getElementById("vacancyTable");
+async function loadVacancies() {
 
-async function loadVacancies(){
+  if (!vacancyTable) return;
 
-if(!vacancyTable) return;
+  vacancyTable.innerHTML = "";
 
-vacancyTable.innerHTML="";
+  const snapshot = await getDocs(
+    collection(db, "vacancies")
+  );
 
-const snapshot =
-await getDocs(
-collection(db,"vacancies")
-);
+  snapshot.forEach((documentData) => {
 
-snapshot.forEach((document)=>{
+    const data = documentData.data();
 
-const data=document.data();
+    vacancyTable.innerHTML += `
 
-vacancyTable.innerHTML += `
+      <tr>
 
-<tr>
+        <td>${data.jobTitle || ""}</td>
 
-<td>${data.jobTitle||""}</td>
+        <td>${data.location || ""}</td>
 
-<td>${data.location||""}</td>
+        <td>${data.salary || ""}</td>
 
-<td>${data.salary||""}</td>
+        <td>${data.status || "Active"}</td>
 
-<td>${data.status||"Active"}</td>
+        <td>
 
-<td>
+          <button
+            class="deleteBtn"
+            onclick="deleteVacancy('${documentData.id}')">
 
-<button
-class="deleteBtn"
-onclick="deleteVacancy('${document.id}')">
+            Delete
 
-Delete
+          </button>
 
-</button>
+        </td>
 
-</td>
+      </tr>
 
-</tr>
+    `;
 
-`;
-
-});
+  });
 
 }
 
+window.deleteVacancy = async (id) => {
 
+  if (!confirm("Delete Vacancy ?")) return;
 
-// ===========================
-// Delete Vacancy
-// ===========================
+  await deleteDoc(
+    doc(db, "vacancies", id)
+  );
 
-window.deleteVacancy = async(id)=>{
-
-if(!confirm("Delete Vacancy ?"))
-return;
-
-await deleteDoc(
-doc(db,"vacancies",id)
-);
-
-loadVacancies();
-
-loadDashboard();
+  loadVacancies();
+  loadDashboard();
 
 };
-const vacancyTable =
-document.getElementById("vacancyTable");
-
-
-async function loadVacancies(){
-
-if(!vacancyTable) return;
-
-
-vacancyTable.innerHTML="";
-
-
-const snapshot =
-await getDocs(
-collection(db,"vacancies")
-);
-
-
-
-snapshot.forEach((document)=>{
-
-
-const data=document.data();
-
-
-vacancyTable.innerHTML += `
-
-<tr>
-
-<td>${data.jobTitle || ""}</td>
-
-<td>${data.location || ""}</td>
-
-<td>${data.salary || ""}</td>
-
-<td>${data.status || "Active"}</td>
-
-<td>
-
-<button class="deleteBtn"
-onclick="deleteVacancy('${document.id}')">
-
-Delete
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-
-}
-
-
-
-
-window.deleteVacancy = async(id)=>{
-
-
-if(!confirm("Delete Vacancy ?"))
-return;
-
-
-await deleteDoc(
-doc(db,"vacancies",id)
-);
-
-
-loadVacancies();
-
-loadDashboard();
-
-
-};
-
-employerTable.innerHTML="";
-
-
-const snapshot =
-await getDocs(
-collection(db,"employers")
-);
-
-
-
-snapshot.forEach((document)=>{
-
-
-const data =
-document.data();
-
-
-
-employerTable.innerHTML += `
-
-
-<tr>
-
-
-<td>${data.companyName || ""}</td>
-
-<td>${data.contactPerson || ""}</td>
-
-<td>${data.mobile || ""}</td>
-
-<td>${data.email || ""}</td>
-
-
-<td>
-
-
-<button class="deleteBtn"
-
-onclick="deleteEmployer('${document.id}')">
-
-Delete
-
-</button>
-
-
-</td>
-
-
-</tr>
-
-
-`;
-
-
-});
-
-
-}
-
-
-
-
-window.deleteEmployer = async(id)=>{
-
-
-if(!confirm("Delete Employer ?"))
-return;
-
-
-await deleteDoc(
-doc(db,"employers",id)
-);
-
-
-loadEmployers();
-
-loadDashboard();
-
-
-};
-
-
-
-
-
-
-
-// ===========================
+// ===============================
 // Add Vacancy
-// ===========================
+// ===============================
 
+if (vacancyForm) {
 
-const vacancyForm =
-document.getElementById("vacancyForm");
+  vacancyForm.addEventListener("submit", async (e) => {
 
+    e.preventDefault();
 
-const vacancyMessage =
-document.getElementById("vacancyMessage");
+    const vacancy = {
 
+      jobTitle: document.getElementById("jobTitle").value,
 
+      location: document.getElementById("jobLocation").value,
 
+      salary: document.getElementById("jobSalary").value,
 
-if(vacancyForm){
+      qualification: document.getElementById("jobQualification").value,
 
+      status: "Active",
 
-vacancyForm.addEventListener("submit", async(e)=>{
+      createdAt: new Date()
 
+    };
 
-e.preventDefault();
+    await addDoc(
+      collection(db, "vacancies"),
+      vacancy
+    );
 
+    if (vacancyMessage) {
 
+      vacancyMessage.innerText =
+        "Vacancy Added Successfully";
 
-await addDoc(
+      vacancyMessage.style.color = "green";
 
-collection(db,"vacancies"),
+    }
 
-{
+    vacancyForm.reset();
 
+    loadVacancies();
+    loadDashboard();
 
-title:
-document.getElementById("jobTitle").value,
-
-
-location:
-document.getElementById("jobLocation").value,
-
-
-salary:
-document.getElementById("jobSalary").value,
-
-
-qualification:
-document.getElementById("jobQualification").value,
-
-
-status:
-"Active",
-
-
-createdAt:
-new Date()
-
+  });
 
 }
 
-);
-
-
-
-
-vacancyMessage.innerText =
-"Vacancy Added Successfully";
-
-
-vacancyMessage.style.color =
-"green";
-
-
-
-vacancyForm.reset();
-
-
-
-loadVacancies();
-
-loadDashboard();
-
-
-
-});
-
-
-}
-
-
-
-
-
-
-// ===========================
-// Load Vacancies
-// ===========================
-
-
-async function loadVacancies(){
-
-
-if(!vacancyTable)
-return;
-
-
-vacancyTable.innerHTML="";
-
-
-
-const snapshot =
-await getDocs(
-collection(db,"vacancies")
-);
-
-
-
-
-snapshot.forEach((document)=>{
-
-
-const data =
-document.data();
-
-
-
-vacancyTable.innerHTML += `
-
-
-
-<tr>
-
-
-<td>${data.title || ""}</td>
-
-
-<td>${data.location || ""}</td>
-
-
-<td>${data.salary || ""}</td>
-
-
-<td>${data.status || ""}</td>
-
-
-<td>
-
-
-<button class="deleteBtn"
-
-onclick="deleteVacancy('${document.id}')">
-
-Delete
-
-</button>
-
-
-</td>
-
-
-</tr>
-
-
-`;
-
-
-});
-
-
-}
-
-
-
-
-
-
-window.deleteVacancy = async(id)=>{
-
-
-if(!confirm("Delete Vacancy ?"))
-return;
-
-
-await deleteDoc(
-
-doc(db,"vacancies",id)
-
-);
-
-
-
-loadVacancies();
-
-loadDashboard();
-
-
-};
-
-
-
-
-
-
-
-
-// ===========================
+// ===============================
 // Dashboard Count
-// ===========================
+// ===============================
 
+async function loadDashboard() {
 
-async function loadDashboard(){
+  const candidateSnapshot =
+    await getDocs(collection(db, "candidates"));
 
+  const employerSnapshot =
+    await getDocs(collection(db, "employers"));
 
+  const vacancySnapshot =
+    await getDocs(collection(db, "vacancies"));
 
-const candidateSnapshot =
-await getDocs(
-collection(db,"candidates")
-);
+  const candidateCount =
+    document.getElementById("candidateCount");
 
+  const employerCount =
+    document.getElementById("employerCount");
 
+  const vacancyCount =
+    document.getElementById("vacancyCount");
 
-const employerSnapshot =
-await getDocs(
-collection(db,"employers")
-);
+  if (candidateCount)
+    candidateCount.innerText = candidateSnapshot.size;
 
+  if (employerCount)
+    employerCount.innerText = employerSnapshot.size;
 
-
-const vacancySnapshot =
-await getDocs(
-collection(db,"vacancies")
-);
-
-
-
-document.getElementById("candidateCount").innerText =
-candidateSnapshot.size;
-
-
-
-document.getElementById("employerCount").innerText =
-employerSnapshot.size;
-
-
-
-document.getElementById("vacancyCount").innerText =
-vacancySnapshot.size;
-
-
+  if (vacancyCount)
+    vacancyCount.innerText = vacancySnapshot.size;
 
 }
 
-
-
-
-
-
-
-
-// ===========================
+// ===============================
 // Search Candidate
-// ===========================
-
-
-const searchBox =
-document.getElementById("searchCandidate");
-
-
-
-if(searchBox){
-
-
-searchBox.addEventListener("keyup",()=>{
-
-
-const value =
-searchBox.value.toLowerCase();
-
-
-
-const rows =
-document.querySelectorAll("#candidateTable tr");
-
-
-
-rows.forEach((row)=>{
-
-
-const text =
-row.innerText.toLowerCase();
-
-
-
-row.style.display =
-text.includes(value)
-?
-""
-:
-"none";
-
-
-
-});
-
-
-});
-
-
-}
-
-
-
-
-
-
-// ===========================
-// Start
-// ===========================
-
-
-loadCandidates();
-
-loadEmployers();
-
-loadVacancies();
-
-loadDashboard();
-
-
-console.log("Admin Dashboard Ready");
-// ===============================
-// Add Vacancy
-// Rudra Consultancy
 // ===============================
 
-import {
-addDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+if (searchBox) {
 
+  searchBox.addEventListener("keyup", () => {
 
-const vacancyForm = document.getElementById("vacancyForm");
+    const value =
+      searchBox.value.toLowerCase();
 
+    const rows =
+      document.querySelectorAll("#candidateTable tr");
 
-if(vacancyForm){
+    rows.forEach((row) => {
 
+      const text =
+        row.innerText.toLowerCase();
 
-vacancyForm.addEventListener("submit", async(e)=>{
+      row.style.display =
+        text.includes(value) ? "" : "none";
 
+    });
 
-e.preventDefault();
-
-
-
-const vacancyData = {
-
-
-jobTitle:
-document.getElementById("jobTitle").value,
-
-
-location:
-document.getElementById("jobLocation").value,
-
-
-salary:
-document.getElementById("jobSalary").value,
-
-
-qualification:
-document.getElementById("jobQualification").value,
-
-
-status:"Active",
-
-
-createdAt:
-new Date()
-
-
-};
-
-
-
-await addDoc(
-
-collection(db,"vacancies"),
-
-vacancyData
-
-);
-
-
-
-document.getElementById("vacancyMessage").innerText =
-"Vacancy Added Successfully";
-
-
-vacancyForm.reset();
-
-
-loadDashboard();
-
-
-});
-
-
-}
-// ===============================
-// Add New Vacancy
-// ===============================
-
-import {
-addDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-const vacancyForm = document.getElementById("vacancyForm");
-
-
-if(vacancyForm){
-
-vacancyForm.addEventListener("submit", async(e)=>{
-
-e.preventDefault();
-
-
-const vacancy = {
-
-jobTitle:
-document.getElementById("jobTitle").value,
-
-location:
-document.getElementById("jobLocation").value,
-
-salary:
-document.getElementById("jobSalary").value,
-
-qualification:
-document.getElementById("jobQualification").value,
-
-status:"Active",
-
-createdAt:new Date()
-
-};
-
-
-await addDoc(
-collection(db,"vacancies"),
-vacancy
-);
-
-
-document.getElementById("vacancyMessage").innerText =
-"Vacancy Added Successfully";
-
-
-vacancyForm.reset();
-
-loadCandidates();
-
-loadEmployers();
-
-loadDashboard();
-
-loadVacancies();
-
-
-});
+  });
 
 }
 // ===============================
 // Admin Logout
 // ===============================
 
-import {
-signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+if (logoutBtn) {
 
-import {
-auth
-} from "./firebase-config.js";
+  logoutBtn.addEventListener("click", async () => {
 
+    try {
 
-const logoutBtn = document.getElementById("logoutBtn");
+      await signOut(auth);
 
+      window.location.href = "login.html";
 
-if(logoutBtn){
+    } catch (error) {
 
-logoutBtn.addEventListener("click", async()=>{
+      console.error("Logout Error:", error);
 
-await signOut(auth);
+      alert("Logout failed!");
 
-window.location.href="login.html";
+    }
 
-});
+  });
 
 }
-loadCandidates();
 
-loadEmployers();
+// ===============================
+// Start
+// ===============================
 
-loadDashboard();
+document.addEventListener("DOMContentLoaded", async () => {
 
-loadVacancies();
+  try {
 
-console.log("Admin Dashboard Ready");
+    await loadCandidates();
+
+    await loadEmployers();
+
+    await loadVacancies();
+
+    await loadDashboard();
+
+    console.log("Admin Dashboard Ready");
+
+  } catch (error) {
+
+    console.error("Admin Dashboard Error:", error);
+
+  }
+
+});
