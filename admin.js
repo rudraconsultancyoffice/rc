@@ -22,12 +22,12 @@ import {
 // Admin Login Check
 // ===============================
 
+
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    window.location.href = "login.html";
+    window.location.replace("login.html");
   }
 });
-
 // ===============================
 // Elements
 // ===============================
@@ -269,7 +269,9 @@ if (vacancyForm) {
         "Vacancy Added Successfully";
 
       vacancyMessage.style.color = "green";
-
+setTimeout(() => {
+  vacancyMessage.innerText = "";
+}, 3000);
     }
 
     vacancyForm.reset();
@@ -355,7 +357,7 @@ if (logoutBtn) {
 
       await signOut(auth);
 
-      window.location.href = "login.html";
+      window.location.replace("login.html");
 
     } catch (error) {
 
