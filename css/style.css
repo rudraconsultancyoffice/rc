@@ -171,13 +171,9 @@ cursor:pointer;
 transition:.3s;
 
 }
-
 .hero button:hover{
-
-transform:translateY(-3px);
-
+transform:translateY(-3px) scale(1.03);
 box-shadow:0 12px 25px rgba(0,0,0,.2);
-
 }
 
 section{
@@ -430,13 +426,10 @@ border:1px solid #e8edf5;
 transition:.35s;
 
 }
-
 .dashboard-card:hover{
-
-transform:translateY(-6px);
-
+transform:translateY(-6px) scale(1.02);
 box-shadow:0 18px 35px rgba(13,110,253,.18);
-
+border-color:#0d6efd;
 }
 
 .dashboard-card h3{
@@ -497,27 +490,10 @@ background:#f7fbff;
 
 /* Delete Button */
 
-.deleteBtn{
-
-background:#dc3545;
-color:#fff;
-
-padding:10px 16px;
-
-border:none;
-
-border-radius:10px;
-
-cursor:pointer;
-
-font-weight:600;
-
-}
-
 .deleteBtn:hover{
-
 background:#bb2d3b;
-
+transform:translateY(-2px);
+box-shadow:0 8px 18px rgba(220,53,69,.25);
 }
 
 /* Floating Buttons */
