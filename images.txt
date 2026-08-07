@@ -1,6 +1,0 @@
-office-banner.jpg
-office1.jpg
-office2.jpg
-recruitment.jpg
-candidate.jpg
-success.jpg
