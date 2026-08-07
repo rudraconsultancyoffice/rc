@@ -1,381 +1,33 @@
-/* ==========================================
-Rudra Consultancy
-Premium Modern UI
-========================================== */
+/* ===================================
+   Rudra Consultancy
+   Premium Website Design
+   style.css FINAL
+=================================== */
+
 
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:"Poppins","Segoe UI",Arial,sans-serif;
+font-family:'Poppins',Arial,sans-serif;
+
 }
 
-:root{
---primary:#0d6efd;
---dark:#063b8f;
---gold:#ffc107;
---green:#198754;
---white:#fff;
---bg:#f4f8ff;
---text:#1f2937;
---shadow:0 15px 40px rgba(0,0,0,.12);
-}
 
 body{
-background:var(--bg);
-color:var(--text);
-line-height:1.7;
-overflow-x:hidden;
-}
 
-a{
-text-decoration:none;
-color:inherit;
-}
+background:#f5f8ff;
 
-img{
-max-width:100%;
-}
+color:#222;
 
-
-/* HEADER */
-
-header{
-
-position:sticky;
-top:0;
-z-index:1000;
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-padding:18px 8%;
-
-background:linear-gradient(135deg,#0d6efd,#063b8f);
-
-color:white;
-
-box-shadow:var(--shadow);
+line-height:1.6;
 
 }
 
 
-.logo h1{
+/* Floating Contact */
 
-font-size:34px;
-
-}
-
-
-.logo p{
-
-font-size:14px;
-opacity:.9;
-
-}
-
-
-nav{
-
-display:flex;
-gap:18px;
-flex-wrap:wrap;
-
-}
-
-
-nav a{
-
-padding:10px 16px;
-
-border-radius:30px;
-
-font-weight:600;
-
-transition:.3s;
-
-}
-
-
-nav a:hover{
-
-background:white;
-color:#0d6efd;
-
-}
-
-
-/* HERO */
-
-.hero{
-
-min-height:80vh;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-text-align:center;
-
-padding:100px 8%;
-
-color:white;
-
-
-background:
-
-linear-gradient(
-rgba(0,0,0,.45),
-rgba(0,0,0,.45)
-),
-
-url("https://images.unsplash.com/photo-1521737711867-e3b97375f902")
-center/cover;
-
-
-}
-
-
-.hero h2{
-
-font-size:50px;
-
-margin-bottom:20px;
-
-}
-
-
-.hero p{
-
-max-width:900px;
-
-font-size:19px;
-
-}
-
-
-.hero button{
-
-margin-top:30px;
-
-padding:16px 40px;
-
-border:none;
-
-border-radius:30px;
-
-background:var(--gold);
-
-font-size:18px;
-
-font-weight:700;
-
-cursor:pointer;
-
-}
-
-
-/* SECTIONS */
-
-section{
-
-padding:80px 8%;
-
-}
-
-
-section h2{
-
-text-align:center;
-
-font-size:38px;
-
-color:#063b8f;
-
-margin-bottom:40px;
-
-}
-
-
-/* BOXES */
-
-
-.info-box,
-.job-box,
-.contact-box,
-form{
-
-
-background:white;
-
-border-radius:22px;
-
-padding:30px;
-
-box-shadow:var(--shadow);
-
-border:1px solid #e5e7eb;
-
-transition:.3s;
-
-}
-
-
-.info-box:hover,
-.job-box:hover,
-.contact-box:hover{
-
-transform:translateY(-8px);
-
-}
-
-
-/* JOB CARDS */
-
-.job-container{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(280px,1fr));
-
-gap:25px;
-
-}
-
-
-.job-box h3{
-
-color:#0d6efd;
-
-font-size:24px;
-
-margin-bottom:15px;
-
-}
-
-
-.job-box p{
-
-font-size:16px;
-
-}
-
-
-/* BUTTONS */
-
-
-button,
-.apply-btn,
-form button{
-
-width:100%;
-
-padding:15px;
-
-border:none;
-
-border-radius:14px;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-
-.apply-btn{
-
-background:#198754;
-
-color:white;
-
-margin-top:15px;
-
-}
-
-
-button:hover,
-.apply-btn:hover{
-
-transform:translateY(-3px);
-
-box-shadow:0 10px 20px rgba(0,0,0,.2);
-
-}
-
-
-/* FORM */
-
-
-input,
-textarea,
-select{
-
-width:100%;
-
-padding:15px;
-
-margin-bottom:18px;
-
-border-radius:12px;
-
-border:2px solid #e5e7eb;
-
-font-size:15px;
-
-}
-
-
-input:focus,
-textarea:focus{
-
-outline:none;
-
-border-color:#0d6efd;
-
-}
-
-
-
-/* CONTACT */
-
-
-.contact-box{
-
-text-align:center;
-
-}
-
-
-.whatsapp{
-
-display:inline-block;
-
-background:#25D366;
-
-color:white;
-
-padding:14px 30px;
-
-border-radius:30px;
-
-margin-top:20px;
-
-font-weight:700;
-
-}
-
-
-
-/* FLOATING BUTTON */
 
 .floating-contact{
 
@@ -389,7 +41,7 @@ display:flex;
 
 flex-direction:column;
 
-gap:15px;
+gap:10px;
 
 z-index:999;
 
@@ -398,11 +50,115 @@ z-index:999;
 
 .floating-contact a{
 
-width:60px;
+text-decoration:none;
 
-height:60px;
+background:#0d6efd;
 
-border-radius:50%;
+color:white;
+
+padding:12px 18px;
+
+border-radius:30px;
+
+font-weight:600;
+
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+
+}
+
+
+
+.floating-contact a:hover{
+
+transform:scale(1.05);
+
+}
+
+
+
+/* Header */
+
+
+header{
+
+background:white;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:20px 50px;
+
+box-shadow:0 3px 15px rgba(0,0,0,.1);
+
+position:sticky;
+
+top:0;
+
+z-index:100;
+
+}
+
+
+
+.logo h1{
+
+color:#064a9b;
+
+font-size:30px;
+
+}
+
+
+.logo p{
+
+color:#555;
+
+}
+
+
+
+/* Navigation */
+
+
+nav{
+
+display:flex;
+
+gap:20px;
+
+}
+
+
+
+nav a{
+
+text-decoration:none;
+
+color:#222;
+
+font-weight:600;
+
+transition:.3s;
+
+}
+
+
+nav a:hover{
+
+color:#0d6efd;
+
+}
+/* ===============================
+   Hero Section
+=============================== */
+
+
+.hero{
+
+min-height:520px;
 
 display:flex;
 
@@ -410,47 +166,646 @@ justify-content:center;
 
 align-items:center;
 
-background:#25D366;
+text-align:center;
+
+padding:40px 20px;
+
+background:
+
+linear-gradient(
+rgba(0,0,0,.55),
+rgba(0,0,0,.55)
+),
+
+url("images/office-banner.jpg");
+
+
+background-size:cover;
+
+background-position:center;
 
 color:white;
-
-font-size:25px;
-
-box-shadow:var(--shadow);
 
 }
 
 
 
-/* FOOTER */
+.hero-content{
+
+max-width:900px;
+
+}
+
+
+
+.hero h2{
+
+font-size:45px;
+
+font-weight:700;
+
+margin-bottom:20px;
+
+}
+
+
+
+.hero p{
+
+font-size:18px;
+
+line-height:1.8;
+
+margin-bottom:30px;
+
+}
+
+
+
+
+
+/* Buttons */
+
+
+button,
+.apply-btn{
+
+
+background:#0d6efd;
+
+color:white;
+
+border:none;
+
+padding:14px 30px;
+
+border-radius:30px;
+
+font-size:16px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+
+}
+
+
+
+button:hover,
+.apply-btn:hover{
+
+
+background:#084298;
+
+transform:translateY(-3px);
+
+
+}
+
+
+
+
+/* Common Sections */
+
+
+section{
+
+padding:60px 8%;
+
+}
+
+
+
+section h2{
+
+
+text-align:center;
+
+font-size:34px;
+
+color:#064a9b;
+
+margin-bottom:35px;
+
+
+}
+
+
+
+section p{
+
+font-size:16px;
+
+}
+
+
+
+
+
+/* Info Box */
+
+
+.info-box{
+
+background:white;
+
+max-width:700px;
+
+margin:30px auto;
+
+padding:30px;
+
+border-radius:15px;
+
+box-shadow:
+
+0 8px 25px rgba(0,0,0,.1);
+
+}
+/* ===============================
+   Feature & Job Cards
+=============================== */
+
+
+.feature-container,
+.job-container{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(auto-fit,minmax(260px,1fr));
+
+gap:25px;
+
+}
+
+
+
+/* Feature Cards */
+
+
+.feature-card{
+
+background:white;
+
+padding:25px;
+
+border-radius:15px;
+
+text-align:center;
+
+box-shadow:
+
+0 8px 25px rgba(0,0,0,.1);
+
+transition:.3s;
+
+}
+
+
+
+.feature-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+
+
+.feature-card img{
+
+width:90px;
+
+height:90px;
+
+object-fit:cover;
+
+border-radius:50%;
+
+margin-bottom:15px;
+
+}
+
+
+
+.feature-card h3{
+
+color:#064a9b;
+
+margin-bottom:10px;
+
+}
+
+
+
+/* Job Cards */
+
+
+.job-box{
+
+background:white;
+
+padding:25px;
+
+border-radius:15px;
+
+box-shadow:
+
+0 8px 25px rgba(0,0,0,.12);
+
+transition:.3s;
+
+}
+
+
+
+.job-box:hover{
+
+transform:translateY(-8px);
+
+}
+
+
+
+.job-box img{
+
+width:100%;
+
+height:180px;
+
+object-fit:cover;
+
+border-radius:12px;
+
+margin-bottom:15px;
+
+}
+
+
+
+.job-box h3{
+
+color:#064a9b;
+
+font-size:22px;
+
+margin-bottom:15px;
+
+}
+
+
+
+.job-box p{
+
+line-height:1.8;
+
+}
+
+
+
+
+/* Forms */
+
+
+form{
+
+max-width:700px;
+
+margin:auto;
+
+background:white;
+
+padding:30px;
+
+border-radius:15px;
+
+box-shadow:
+
+0 8px 25px rgba(0,0,0,.1);
+
+}
+
+
+
+input,
+textarea{
+
+width:100%;
+
+padding:14px;
+
+margin:10px 0;
+
+border:1px solid #ccc;
+
+border-radius:8px;
+
+font-size:15px;
+
+}
+
+
+
+textarea{
+
+resize:none;
+
+}
+
+
+
+label{
+
+display:block;
+
+margin:15px 0;
+
+font-weight:600;
+
+}
+/* ===============================
+   Contact Section
+=============================== */
+
+
+.contact-box{
+
+max-width:650px;
+
+margin:auto;
+
+background:#064a9b;
+
+color:white;
+
+padding:40px;
+
+border-radius:20px;
+
+text-align:center;
+
+box-shadow:
+
+0 10px 30px rgba(0,0,0,.2);
+
+}
+
+
+
+.contact-box h3{
+
+font-size:28px;
+
+margin-bottom:20px;
+
+}
+
+
+
+.contact-box p{
+
+margin:12px 0;
+
+}
+
+
+
+.contact-box a{
+
+color:white;
+
+text-decoration:none;
+
+font-weight:600;
+
+}
+
+
+
+/* WhatsApp Button */
+
+
+.whatsapp{
+
+display:inline-block;
+
+margin-top:20px;
+
+background:#25D366;
+
+padding:14px 30px;
+
+border-radius:30px;
+
+color:white;
+
+}
+
+
+
+
+
+/* ===============================
+   Gallery Section
+=============================== */
+
+
+.gallery-container{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(auto-fit,minmax(250px,1fr));
+
+gap:25px;
+
+}
+
+
+
+.gallery-box{
+
+background:white;
+
+border-radius:15px;
+
+overflow:hidden;
+
+box-shadow:
+
+0 8px 25px rgba(0,0,0,.12);
+
+transition:.3s;
+
+}
+
+
+
+.gallery-box:hover{
+
+transform:translateY(-8px);
+
+}
+
+
+
+.gallery-box img{
+
+width:100%;
+
+height:220px;
+
+object-fit:cover;
+
+}
+
+
+
+.gallery-box h3{
+
+padding:20px;
+
+text-align:center;
+
+color:#064a9b;
+
+}
+
+
+
+
+/* ===============================
+   Video Section
+=============================== */
+
+
+.video-box{
+
+max-width:800px;
+
+margin:auto;
+
+background:white;
+
+padding:20px;
+
+border-radius:15px;
+
+box-shadow:
+
+0 8px 25px rgba(0,0,0,.1);
+
+}
+
+
+
+.video-box video{
+
+width:100%;
+
+border-radius:10px;
+
+}
+/* ===============================
+   Footer
+=============================== */
+
 
 footer{
 
-background:#063b8f;
+background:#064a9b;
 
 color:white;
 
 text-align:center;
 
-padding:30px;
+padding:30px 20px;
+
+margin-top:30px;
 
 }
 
 
-/* MOBILE */
+
+footer p{
+
+margin:5px;
+
+}
 
 
-@media(max-width:768px){
+
+
+
+/* ===============================
+   Loading Animation
+=============================== */
+
+
+body.loaded{
+
+animation:fadeIn .8s ease;
+
+}
+
+
+
+@keyframes fadeIn{
+
+
+from{
+
+opacity:0;
+
+}
+
+
+to{
+
+opacity:1;
+
+}
+
+
+}
+
+
+
+
+/* ===============================
+   Responsive Design
+=============================== */
+
+
+@media(max-width:900px){
+
+
 
 header{
 
 flex-direction:column;
 
-gap:15px;
+gap:20px;
 
-text-align:center;
+padding:20px;
 
 }
+
+
+
+nav{
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+}
+
 
 
 .hero h2{
@@ -460,25 +815,30 @@ font-size:32px;
 }
 
 
+
 .hero p{
 
-font-size:15px;
+font-size:16px;
 
 }
+
 
 
 section{
 
-padding:50px 20px;
+padding:40px 5%;
 
 }
 
 
-section h2{
-
-font-size:28px;
 
 }
+
+
+
+
+
+@media(max-width:600px){
 
 
 .logo h1{
@@ -487,4 +847,613 @@ font-size:25px;
 
 }
 
+
+
+nav a{
+
+font-size:14px;
+
 }
+
+
+
+.hero{
+
+min-height:450px;
+
+}
+
+
+
+.hero h2{
+
+font-size:26px;
+
+}
+
+
+
+.floating-contact{
+
+right:10px;
+
+bottom:10px;
+
+}
+
+
+
+.floating-contact a{
+
+padding:10px 14px;
+
+font-size:14px;
+
+}
+
+
+
+.contact-box{
+
+padding:25px;
+
+}
+
+
+
+}
+/* ===============================
+   Footer
+=============================== */
+
+
+footer{
+
+background:#064a9b;
+
+color:white;
+
+text-align:center;
+
+padding:30px 20px;
+
+margin-top:30px;
+
+}
+
+
+
+footer p{
+
+margin:5px;
+
+}
+
+
+
+
+
+/* ===============================
+   Loading Animation
+=============================== */
+
+
+body.loaded{
+
+animation:fadeIn .8s ease;
+
+}
+
+
+
+@keyframes fadeIn{
+
+
+from{
+
+opacity:0;
+
+}
+
+
+to{
+
+opacity:1;
+
+}
+
+
+}
+
+
+
+
+/* ===============================
+   Responsive Design
+=============================== */
+
+
+@media(max-width:900px){
+
+
+
+header{
+
+flex-direction:column;
+
+gap:20px;
+
+padding:20px;
+
+}
+
+
+
+nav{
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+}
+
+
+
+.hero h2{
+
+font-size:32px;
+
+}
+
+
+
+.hero p{
+
+font-size:16px;
+
+}
+
+
+
+section{
+
+padding:40px 5%;
+
+}
+
+
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+
+.logo h1{
+
+font-size:25px;
+
+}
+
+
+
+nav a{
+
+font-size:14px;
+
+}
+
+
+
+.hero{
+
+min-height:450px;
+
+}
+
+
+
+.hero h2{
+
+font-size:26px;
+
+}
+
+
+
+.floating-contact{
+
+right:10px;
+
+bottom:10px;
+
+}
+
+
+
+.floating-contact a{
+
+padding:10px 14px;
+
+font-size:14px;
+
+}
+
+
+
+.contact-box{
+
+padding:25px;
+
+}
+
+/* ===============================
+   Footer
+=============================== */
+
+
+footer{
+
+background:#064a9b;
+
+color:white;
+
+text-align:center;
+
+padding:30px 20px;
+
+margin-top:30px;
+
+}
+
+
+
+footer p{
+
+margin:5px;
+
+}
+
+
+
+
+
+/* ===============================
+   Loading Animation
+=============================== */
+
+
+body.loaded{
+
+animation:fadeIn .8s ease;
+
+}
+
+
+
+@keyframes fadeIn{
+
+
+from{
+
+opacity:0;
+
+}
+
+
+to{
+
+opacity:1;
+
+}
+
+
+}
+
+
+
+
+/* ===============================
+   Responsive Design
+=============================== */
+
+
+@media(max-width:900px){
+
+
+
+header{
+
+flex-direction:column;
+
+gap:20px;
+
+padding:20px;
+
+}
+
+
+
+nav{
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+}
+
+
+
+.hero h2{
+
+font-size:32px;
+
+}
+
+
+
+.hero p{
+
+font-size:16px;
+
+}
+
+
+
+section{
+
+padding:40px 5%;
+
+}
+
+
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+
+.logo h1{
+
+font-size:25px;
+
+}
+
+
+
+nav a{
+
+font-size:14px;
+
+}
+
+
+
+.hero{
+
+min-height:450px;
+
+}
+
+
+
+.hero h2{
+
+font-size:26px;
+
+}
+
+
+
+.floating-contact{
+
+right:10px;
+
+bottom:10px;
+
+}
+
+
+
+.floating-contact a{
+
+padding:10px 14px;
+
+font-size:14px;
+
+}
+
+
+
+.contact-box{
+
+padding:25px;
+
+}
+
+
+
+}
+  /* ===============================
+   Extra Professional Effects
+=============================== */
+
+
+/* Smooth Scrolling */
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+
+
+/* Links Animation */
+
+
+a{
+
+transition:.3s;
+
+}
+
+
+
+/* Card Border Effect */
+
+
+.job-box,
+.feature-card,
+.gallery-box{
+
+border:1px solid rgba(13,110,253,.08);
+
+}
+
+
+
+/* Apply Button Small Fix */
+
+
+.apply-btn{
+
+margin-top:15px;
+
+width:auto;
+
+}
+
+
+
+/* File Upload */
+
+
+input[type="file"]{
+
+background:#f8f9fa;
+
+cursor:pointer;
+
+}
+
+
+
+/* Checkbox */
+
+
+input[type="checkbox"]{
+
+width:auto;
+
+margin-right:8px;
+
+}
+
+
+
+/* Mobile Form */
+
+
+@media(max-width:500px){
+
+
+form{
+
+padding:20px;
+
+}
+
+
+
+button,
+.apply-btn{
+
+width:100%;
+
+}
+
+
+
+section h2{
+
+font-size:26px;
+
+}
+
+
+
+.job-box h3{
+
+font-size:20px;
+
+}
+
+
+}
+
+
+
+
+/* Image Hover */
+
+
+img{
+
+transition:.4s;
+
+}
+
+
+img:hover{
+
+transform:scale(1.03);
+
+}
+
+
+
+
+/* Shadow Utility */
+
+
+.info-box,
+form,
+.card{
+
+transition:.3s;
+
+}
+
+
+
+.info-box:hover,
+form:hover{
+
+transform:translateY(-5px);
+
+}
+
+}
+
+
+/* ===============================
+   Final Close Fix
+=============================== */
+
+html{
+scroll-behavior:smooth;
+}
+
+img{
+max-width:100%;
+}
+
+/* End */
